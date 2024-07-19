@@ -32,7 +32,7 @@ export default function Navbar() {
         />
          <div className="hidden lg:flex gap-12">
         {navLinks.map((link, index) => (
-            <Link href={link.route} className="text-slate-700 font-medium" key={index}>{link.name}</Link>
+            <Link href={link.route} className="font-medium" key={index}>{link.name}</Link>
         ))}
       </div>
       </div>

@@ -21,7 +21,8 @@ export default function Hero() {
           </h2>
           <Button
             size={"lg"}
-            className="mt-5 w-1/2 font-bold bg-[#7e02b7] hover:bg-[#c240ff]"
+            className="mt-5 w-1/2 font-bold bg-[#7e02b7] hover:bg-[#7e02b2]"
+
             asChild
           >
             <Link href={"/cotizar"}>Cotizar</Link>
@@ -37,7 +38,7 @@ export default function Hero() {
         </aside>
       </section>
       <div className="absolute inset-0 flex items-end justify-end -z-10">
-        <div className="w-[50%] h-[50%] rounded-full bg-purple-500 blur-3xl opacity-20 transform -translate-y-1/2"></div>
+        <div className="w-[50%] h-[50%] rounded-full bg-gradient-to-r from-[#7e02b7] to-[#c240ff] bg-300% animate-gradient blur-3xl opacity-20 transform -translate-y-1/2"></div>
       </div>
     </main>
   );
