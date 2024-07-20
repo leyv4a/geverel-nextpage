@@ -34,7 +34,7 @@ export default function Navbar() {
        </Link>
          <div className="hidden lg:flex gap-12">
         {navLinks.map((link, index) => (
-            <Link href={link.route} className="font-medium" key={index}>{link.name}</Link>
+            <Link href={link.route} className="font-medium hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient" key={index}>{link.name}</Link>
         ))}
       </div>
       </div>

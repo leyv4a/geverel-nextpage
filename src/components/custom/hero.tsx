@@ -29,7 +29,7 @@ export default function Hero() {
             </p>
             <Button
               size={"lg"}
-              className="mt-5  bg-[#7e02b7] hover:bg-[#7e02b2]"
+              className="mt-5  bg-[#7e02b7] hover:bg-[#6e02a0]"
               asChild
             >
               <Link href={"/cotizar"}>Cotizar<Rocket className="h-4 w-4 ms-3 "/></Link>
