@@ -7,8 +7,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <>
-      <main className="w-full my-10 sm:my-5 md:my-0 ">
-        <section className="flex flex-col lg:flex-row gap-2 min-h-full items-center">
+        <main className="mt-5 container mx-auto flex flex-col lg:flex-row gap-2 min-h-full items-center">
           <article className="text-center w-full flex flex-col items-center">
             <h1 className="text-4xl -skew-y-3 rotate-2 font-b612 leading-6 bg-[#bababa] text-[#f2f2f2] py-2 md:w-1/2">
               Del boceto al click:
@@ -43,8 +42,7 @@ export default function Hero() {
               className="sm:my-5"
             />
           </aside>
-        </section>
-      </main>
+        </main>
       <div className="absolute inset-0 flex items-end justify-end -z-10">
         <div className="w-[50%] h-[50%] rounded-full bg-gradient-to-r from-[#7e02b7] via-purple-400 to-purple-700 bg-300% blur-2xl opacity-20 animate-gradient transform -translate-y-1/2"></div>
       </div>
