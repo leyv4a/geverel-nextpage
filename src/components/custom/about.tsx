@@ -4,7 +4,7 @@ import QualitySoftware from '../../../public/assets/quality-software.webp'
 export default function About() {
   return (
     <>
-    <section className="mt-2 container mx-auto flex flex-col gap-8 items-center">
+    <section className="mt-2 mb-[3rem] container mx-auto flex flex-col gap-8 items-center">
       {/* <div className="flex items-center justify-center gap-2 "> */}
         <article className="text-center w-full flex flex-col items-center">
           <h3 className="text-2xl md:text-6xl font-bold leading-6 bg-gradient-to-r from-[#000000] via-[#000000]  text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient">
@@ -18,9 +18,9 @@ export default function About() {
           </h4>
         </article>
       {/* </div> */}
-      <Image src={QualitySoftware} width={500} alt="Software de calidad."/>
+      <Image src={QualitySoftware} width={500} alt="Software de calidad." loading="lazy"/>
       <article className="text-center w-full flex flex-col items-center">
-          <h3 className="text-2xl md:text-6xl font-bold leading-6 ">
+          <h3 className="text-2xl md:text-6xl font-bold leading-6  bg-gradient-to-r from-[#000000] via-[#000000]  text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient">
           Nuestra misión es simple.
           </h3>
           <h4 className="text-sm md:text-2xl mt-5 text-gray-600 leading-5">
@@ -28,9 +28,8 @@ export default function About() {
           </h4>
         </article>
     </section>
-    <div className="w-full h-[360px] bg-gradient-to-b from-transparent via-transparent to-[#7e02b7] opacity-30">
 
-    </div>
+
     </>
   );
 }
