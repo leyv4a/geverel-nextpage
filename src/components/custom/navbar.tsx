@@ -16,33 +16,54 @@ export default function Navbar() {
   const [isNavOpen, setNavOpen] = useState(false);
 
   return (
-    <nav className="flex w-full border-b items-center justify-between px-[20px] py-[16px] lg:container lg:mx-auto lg:px-20 " >
-      <div className="flex items-center gap-12">
-       <Link href={'/'}>
-       <Image
-          className="md:hidden"
-          width={40}
-          src={LogoMobile}
-          alt="Geverel Software"
-        />
-        <Image
-          className="hidden md:block"
-          width={100}
-          src={Logo}
-          alt="Geverel Software"
-        />
-       </Link>
-         <div className="hidden lg:flex gap-12">
-        {navLinks.map((link, index) => (
-            <Link href={link.route} className="font-medium hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient" key={index}>{link.name}</Link>
-        ))}
+   <>
+         <nav className="flex w-full fixed top-0 backdrop-blur-xl bg-white/30 z-50 border-b items-center justify-between h-[4rem] px-4 md:px-20">
+        <div className="flex items-center gap-12">
+          <Link href="/">
+            <Image
+              className="md:hidden"
+              width={40}
+              src={LogoMobile}
+              alt="Geverel Software"
+            />
+            <Image
+              className="hidden md:block"
+              width={100}
+              src={Logo}
+              alt="Geverel Software"
+            />
+          </Link>
+          <div className="hidden lg:flex gap-12">
+            {navLinks.map((link, index) => (
+              <Link
+                href={link.route}
+                className="font-medium hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
+                key={index}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div>
+          <button onClick={() => setNavOpen(!isNavOpen)} className="lg:hidden">
+            {isNavOpen ? <X /> : <AlignJustify />}
+          </button>
+        </div>
+      </nav>
+      <div
+        className={`relative w-full z-50 top-[4rem] left-0 lg:hidden backdrop-blur-xl bg-white/30 h-screen ${
+          isNavOpen ? '' : 'hidden'
+        }`}
+      >
+        <div className="flex flex-col gap-8 w-full items-center mt-5 text-3xl">
+          {navLinks.map((link, index) => (
+            <Link href={link.route} className="font-medium" key={index}>
+              {link.name}
+            </Link>
+          ))}
+        </div>
       </div>
-      </div>
-      <div>
-        <button onClick={() => setNavOpen(!isNavOpen)} className="lg:hidden">
-          {!isNavOpen ? <AlignJustify /> : <X />}
-        </button>
-      </div>
-    </nav>
+   </>
   );
 }

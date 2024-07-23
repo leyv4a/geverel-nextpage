@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <>
-      <main className="mt-5 container mx-auto flex flex-col lg:flex-row gap-2 min-h-full items-center">
+      <main className="mt-20 container mx-auto flex flex-col lg:flex-row gap-2 min-h-full items-center">
         <article className="text-center w-full flex flex-col items-center">
           <h1 className="text-4xl -skew-y-3 rotate-2 font-b612 leading-6 bg-[#bababa] text-[#f2f2f2] py-2 md:w-1/2">
             Del boceto al click:
@@ -30,7 +30,7 @@ export default function Hero() {
           </p>
           <Button
             size={"lg"}
-            className="mt-5  bg-[#7e02b7] hover:bg-[#6e02a0]"
+            className="mt-5  bg-[#7e02b7] hover:bg-[#6e02a0] animate-pulse animate-twice animate-ease-linear"
             asChild
           >
             <Link href={"/cotizar"}>

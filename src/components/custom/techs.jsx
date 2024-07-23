@@ -51,7 +51,6 @@ export default function Techs() {
         <IconCloud iconSlugs={slugs} />
       </div>
     </div>
-
     <DotPattern
       className="absolute inset-0 z-10 mask-image-radial-gradient-300px-circle-at-center-white-transparent"
     />
