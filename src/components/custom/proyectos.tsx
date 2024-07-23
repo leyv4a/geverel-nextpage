@@ -8,12 +8,14 @@ export default function Proyectos() {
             link: "https://serconomar.com",
             body: "Página web y bolsa de trabajo",
             img: "https://serconomar.com/favico.png",
+            img2: "serconomar.webp"
           },
           {
             name: "Fruteria Taky",
             link: "none",
             body: "Punto de venta personalizado",
-            img: "https://avatar.vercel.sh/jill",
+            img: "https://avatar.vercel.sh/g",
+            img2 : "gevpoint.webp"
           }]
 
         // const firstRow = reviews.slice(0, reviews.length / 2);

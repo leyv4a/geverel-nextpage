@@ -1,6 +1,5 @@
 import React from 'react'
 import { cn } from "@/lib/utils";
-import Marquee from "@/components/magicui/marquee";
 import Image from 'next/image';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
@@ -9,11 +8,13 @@ export default function ProjectCard({
     name,
     link,
     body,
+    img2
   }: {
     img: string;
     name: string;
     link: string;
     body: string;
+    img2: string;
   }) {
    
        return (
@@ -26,8 +27,12 @@ export default function ProjectCard({
           "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
         )}
       >
+        <div  className='flex flex-row w-full'>
+        <Image src={`/assets/projects/${img2}`} alt={img2} width={100} height={50}/>
+        <blockquote className="my-2 ms-1 text-left text-sm">{body}</blockquote>
+        </div>
         {/* DETALLES */}
-        <blockquote className="my-2 text-sm">{body}</blockquote>
+  
         <div className="flex flex-row items-center gap-2">
           <img className="rounded-full" width="32" height="32" alt="" src={img} />
           <div className="flex flex-row justify-between w-full">
