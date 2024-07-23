@@ -50,20 +50,20 @@ export default function Navbar() {
             {isNavOpen ? <X /> : <AlignJustify />}
           </button>
         </div>
-      </nav>
       <div
-        className={`relative w-full z-50 top-[4rem] left-0 lg:hidden backdrop-blur-xl bg-white/30 h-screen ${
-          isNavOpen ? '' : 'hidden'
+        className={`absolute md:hidden w-full z-50 top-[4rem] left-0 transition-all backdrop-blur-xl bg-white/30 overflow-hidden ${
+          isNavOpen ? 'h-screen opacity-100' : 'h-[0] opacity-0'
         }`}
       >
         <div className="flex flex-col gap-8 w-full items-center mt-5 text-3xl">
           {navLinks.map((link, index) => (
-            <Link href={link.route} className="font-medium" key={index}>
+            <Link href={link.route} className="font-medium" key={index} onClick={()=>{ setNavOpen(false);}}>
               {link.name}
             </Link>
           ))}
         </div>
       </div>
+      </nav>
    </>
   );
 }
