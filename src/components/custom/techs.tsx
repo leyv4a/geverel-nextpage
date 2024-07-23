@@ -1,6 +1,5 @@
 import React from "react";
 import IconCloud from "@/components/magicui/icon-cloud";
-import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
 
 export default function Techs() {
