@@ -22,7 +22,7 @@ export default function Proyectos() {
         // const secondRow = reviews.slice(reviews.length / 2);
   return (
     <>
-      <div className="h-[10rem] bg-gradient-to-b from-[#f2f2f2] to-transparent opacity-50"></div>
+      <div id="proyectos" className="h-[10rem] bg-gradient-to-b from-[#f2f2f2] to-transparent opacity-50"></div>
       <section className="mt-2 mb-[3rem] container mx-auto flex flex-col gap-8 items-center font-poppins text-center">
         <h2 className=" text-2xl md:text-6xl font-semibold bg-gradient-to-r from-[#000000] via-[#000000]text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient">Nuestro trabajo</h2>
         <h3 className="text-gray-600 text-2xl ">
