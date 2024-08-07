@@ -81,7 +81,7 @@ export default function Footer() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="flex gap-4 items-start justify-center md:justify-start w-full "
+              className="flex flex-col md:flex-row gap-4 items-center md:items-start justify-center md:justify-start w-full "
             >
               <div className="flex flex-col  h-full justify-between ">
                 <FormField
@@ -124,7 +124,7 @@ export default function Footer() {
                   )}
                 />
               </div>
-              <div className="flex flex-col justify-between h-full ">
+              <div className="flex flex-col sm:gap-0 gap-4 justify-between h-full ">
                 <FormField
                   control={form.control}
                   name="message"
@@ -134,7 +134,7 @@ export default function Footer() {
                       <FormControl>
                         <Textarea
                           rows={5}
-                          className="resize-none"
+                          className="resize-none "
                           placeholder=""
                           {...field}
                         />
@@ -151,7 +151,7 @@ export default function Footer() {
           Al hacer uso de este formulario, estás aceptando nuestra política de privacidad y nuestros términos de servicio.
           </p>
         </aside>
-        <article className="md:w-1/2 font-poppins">
+        <article className="md:w-1/2 font-poppins hidden md:block">
         ¿Alguna pregunta o comentario? ¡Tu opinión es importante para nosotros! No dudes en escribirnos. ¡Estamos aquí para escucharte y comenzar una conversación contigo!
         </article>
       </section>
