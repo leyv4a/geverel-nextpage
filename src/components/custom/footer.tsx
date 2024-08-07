@@ -1,5 +1,6 @@
 "use client";
 
+import { Facebook, Instagram } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,6 +16,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
+import Link from "next/link";
+import SvgDivider from "./svg-shape-divider";
 
 const formSchema = z.object({
   name: z
@@ -70,16 +73,19 @@ export default function Footer() {
 
   const year: Date = new Date();
 
-
   return (
     <>
-      <section className="my-10 flex flex-col md:flex-row gap-8  font-poppins  container mx-auto">
-        <aside className="flex flex-col md:w-1/2 gap-6 justify-center">
+      <section
+        id="contacto"
+        className="my-10 flex flex-col md:flex-row gap-8  font-poppins  container mx-auto max-w-screen"
+      >
+        <aside className="flex flex-col md:w-1/2 gap-6 justify-center caret-[#7e02b7]">
           <h2 className="text-center md:text-start text-xl md:text-4xl font-semibold bg-gradient-to-r from-[#000000] via-[#000000] text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient">
             Contactanos
           </h2>
           <Form {...form}>
             <form
+              autoComplete="off"
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col md:flex-row gap-4 items-center md:items-start justify-center md:justify-start w-full "
             >
@@ -143,22 +149,46 @@ export default function Footer() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="submit">Enviar</Button>
               </div>
             </form>
           </Form>
           <p className="text-xs md:max-w-[70%] text-center md:text-start">
-          Al hacer uso de este formulario, estás aceptando nuestra política de privacidad y nuestros términos de servicio.
+            Al hacer uso de este formulario, estás aceptando nuestra política de
+            privacidad y nuestros términos de servicio.
           </p>
         </aside>
-        <article className="md:w-1/2 font-poppins hidden md:block">
-        ¿Alguna pregunta o comentario? ¡Tu opinión es importante para nosotros! No dudes en escribirnos. ¡Estamos aquí para escucharte y comenzar una conversación contigo!
+        <article className="md:w-1/2 font-poppins hidden md:block ">
+          {/* ¿Alguna pregunta o comentario? ¡Tu opinión es importante para
+          nosotros! No dudes en escribirnos. ¡Estamos aquí para escucharte y
+          comenzar una conversación contigo! */}
         </article>
       </section>
       <hr />
       <div className="container mx-auto my-10 flex justify-between ">
-        <h2 className="text-start">&copy; Geverel Software {year.getFullYear()}</h2>
-        facebook instagram
+        <h2 className="text-start">
+          &copy; Geverel Software {year.getFullYear()}
+        </h2>
+        <div className="flex gap-2">
+          <Link
+            className="hover:text-slate-700"
+            href={"https://facebook.com/geverelsoftware"}
+            rel="noreferrer"
+            target="_blank"
+            aria-label="Perfil de Facebook"
+          >
+            <Facebook />
+          </Link>
+          <Link
+            className="hover:text-slate-700"
+            href={"https://instagram.com/geverelsoftware"}
+            rel="noreferrer"
+            target="_blank"
+            aria-label="Perfil de Instagram"
+          >
+            <Instagram />
+          </Link>
+        </div>
       </div>
     </>
   );
