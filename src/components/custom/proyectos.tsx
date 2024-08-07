@@ -24,13 +24,13 @@ export default function Proyectos() {
     <>
       <div id="proyectos" className="h-[10rem] bg-gradient-to-b from-[#f2f2f2] to-transparent opacity-50"></div>
       <section className="mt-2 mb-[3rem] container mx-auto flex flex-col gap-8 items-center font-poppins text-center">
-        <h2 className=" text-2xl md:text-6xl font-semibold bg-gradient-to-r from-[#000000] via-[#000000]text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient">Nuestro trabajo</h2>
-        <h3 className="text-gray-600 text-2xl ">
+        <h2  className=" text-2xl md:text-6xl font-semibold bg-gradient-to-r from-[#000000] via-[#000000]text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient">Nuestro trabajo</h2>
+        <h3  className="text-gray-600 text-2xl ">
           Desarrollo web, aplicaciones web, desarrollo de proyectos a medida,
           integraciones, mantenimiento y soporte, capacitación y asesoramiento.
         </h3>
         <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
-      <Marquee pauseOnHover className="[--duration:20s]">
+      <Marquee pauseOnHover className="[--duration:20s]" >
         {reviews.map((review, index) => (
           <ProjectCard key={index} {...review} />
         ))}
