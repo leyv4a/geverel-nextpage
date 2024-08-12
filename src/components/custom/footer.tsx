@@ -18,6 +18,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import Link from "next/link";
 import SvgDivider from "./svg-shape-divider";
+import Image from "next/image";
+import { Card, CardContent } from "../ui/card";
 
 const formSchema = z.object({
   name: z
@@ -148,7 +150,7 @@ export default function Footer() {
                       <FormMessage />
                     </FormItem>
                   )}
-                />
+   w             />
                 <Button type="submit">Enviar</Button>
               </div>
             </form>
@@ -158,10 +160,11 @@ export default function Footer() {
             privacidad y nuestros términos de servicio.
           </p>
         </aside>
-        <article className="md:w-1/2 font-poppins hidden md:block ">
-          {/* ¿Alguna pregunta o comentario? ¡Tu opinión es importante para
-          nosotros! No dudes en escribirnos. ¡Estamos aquí para escucharte y
-          comenzar una conversación contigo! */}
+        <article className="md:w-1/2 font-poppins hidden md:flex items-center justify-center ">
+            <h2 className="absolute z-10 text-center font-allan text-6xl -skew-y-6">
+            NO MAMES 
+            </h2>
+            <Image className="relative -z-50" src={'/assets/rocket.svg'} width={800} height={350} alt="Rocket launching"/>
         </article>
       </section>
       <hr />

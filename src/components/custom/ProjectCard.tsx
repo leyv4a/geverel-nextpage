@@ -16,7 +16,7 @@ export default function ProjectCard({
     body: string;
     img2: string;
   }) {
-   
+
        return (
         <figure
         className={cn(

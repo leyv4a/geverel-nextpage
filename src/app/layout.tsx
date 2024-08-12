@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter} from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/custom/navbar";
+import {poppins, b612, allan} from '@/utils/fonts';
 
 const inter = Inter({ subsets: ["latin"] });
+
+
 
 export const metadata: Metadata = {
   title: "Geverel Software",
@@ -17,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} ${b612} ${poppins} ${allan}`}>
       <Navbar/>
       {children}
       </body>

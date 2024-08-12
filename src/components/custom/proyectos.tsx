@@ -36,17 +36,14 @@ export default function Proyectos() {
           Desarrollo web, aplicaciones web, desarrollo de proyectos a medida,
           integraciones, mantenimiento y soporte, capacitación y asesoramiento.
         </h3>
-        
+
         <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
-        <div className="absolute rotate-45 w-full -translate-x-24 -skew-y-12">
-            <SvgDivider />
-          </div>
           <Marquee pauseOnHover className="[--duration:20s]">
             {reviews.map((review, index) => (
               <ProjectCard key={index} {...review} />
             ))}
           </Marquee>
-        
+
           {/* <Marquee reverse pauseOnHover className="[--duration:20s]">
         {secondRow.map((review, index) => (
           <ProjectCard key={index} {...review} />
@@ -56,7 +53,6 @@ export default function Proyectos() {
           <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
           <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
         </div>
-       
       </section>
     </>
   );

@@ -15,9 +15,14 @@ const config = {
       padding: "2rem",
       screens: {
         "2xl": "1400px",
-      },
+      }
     },
     extend: {
+      fontFamily : {
+        b612 : ["var(--font-b612)"],
+        poppins : ["var(--font-poppins)"],
+        allan : ["var(--font-allan)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
