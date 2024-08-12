@@ -149,8 +149,7 @@ export default function Footer() {
                       </FormControl>
                       <FormMessage />
                     </FormItem>
-                  )}
-   w             />
+                  )}/>
                 <Button type="submit">Enviar</Button>
               </div>
             </form>
@@ -161,8 +160,8 @@ export default function Footer() {
           </p>
         </aside>
         <article className="md:w-1/2 font-poppins hidden md:flex items-center justify-center ">
-            <h2 className="absolute z-10 text-center font-allan text-6xl -skew-y-6">
-            NO MAMES 
+            <h2 className="absolute z-10 text-center font-b612 text-6xl -skew-y-6 ]">
+             #DelBocetoAlClick
             </h2>
             <Image className="relative -z-50" src={'/assets/rocket.svg'} width={800} height={350} alt="Rocket launching"/>
         </article>

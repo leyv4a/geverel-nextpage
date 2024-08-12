@@ -9,7 +9,7 @@ export default function Hero() {
     <>
       <main className="mt-20 container mx-auto flex flex-col lg:flex-row gap-2 min-h-full items-center">
         <article className="text-center w-full flex flex-col items-center">
-          <h1 className="text-4xl -skew-y-3 rotate-2 font-b612 leading-6 bg-[#bababa] text-[#f2f2f2] py-2 md:w-1/2">
+          <h1 className="text-4xl -skew-y-2 rotate- font-b612 leading-7 bg-[#bababa] text-[#f2f2f2] py-2 md:w-1/2">
             Del boceto al click:
           </h1>
           <h2 className="text-5xl font-poppins leading-10 ">
