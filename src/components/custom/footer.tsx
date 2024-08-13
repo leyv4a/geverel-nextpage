@@ -2,6 +2,7 @@
 import { Facebook, Instagram } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import ContactForm from "@/forms/contactForm";
 
 
 export default function Footer() {
@@ -15,11 +16,12 @@ export default function Footer() {
         id="contacto"
         className="my-10 flex flex-col md:flex-row gap-8  font-poppins  container mx-auto max-w-screen"
       >
-        <aside className="flex flex-col md:w-1/2 gap-6 justify-center caret-[#7e02b7]">
+        <aside className="flex flex-col md:w-[50%]  gap-6 justify-center caret-[#7e02b7]">
           <h2 className="text-center md:text-start text-xl md:text-4xl font-semibold bg-gradient-to-r from-[#000000] via-[#000000] text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient">
             Contactanos
           </h2>
           {/* <ContactForm form={form} onSubmit={onSubmit}/> */}
+          <ContactForm/>
           <p className="text-xs md:max-w-[70%] text-center md:text-start">
             Al hacer uso de este formulario, estás aceptando nuestra política de
             privacidad y nuestros términos de servicio.
