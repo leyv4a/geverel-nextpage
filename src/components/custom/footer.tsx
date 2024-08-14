@@ -31,7 +31,7 @@ export default function Footer() {
             <h2 className="absolute z-10 text-center font-b612 md:text-3xl text-2xl lg:text-5xl xl:text-6xl -skew-y-6 ]">
              #DelBocetoAlClick
             </h2>
-            <Image className="relative -z-50" src={'/assets/rocket.svg'} width={800} height={350} alt="Rocket launching"/>
+            <Image className="relative -z-50" src={'/assets/rocket.svg'} width={800} height={350} alt="Rocket launching" fetchPriority="low"/>
         </article>
       </section>
       <hr />

@@ -13,7 +13,7 @@ export default function ContactForm() {
     <>
       {/* <h2 className={error ? `opacity-100` : `opacity-0`}>Error</h2> */}
       <form
-        className="accent-black flex md:justify-start justify-center items-center md:items-start  flex-col md:flex-row w-[100%]"
+        className="accent-black flex md:justify-start justify-center content-center md:items-start  flex-col md:flex-row w-[100%] "
         ref={formRef}
         action={async (formData) => {
           const contactData = await contactForm(formData);
@@ -21,18 +21,18 @@ export default function ContactForm() {
           formRef.current?.reset();
         }}
       >
-        <div className="flex flex-col gap-2 mb-2 md:me-2">
-          <Input type="text" placeholder="Nombre" name="nombre" required />
-          <Textarea placeholder="Escribe tu mensaje" name="mensaje" required className="resize-none" />
+        <div className="flex flex-col gap-2 mb-2 md:me-2 ">
+          <Input type="text" placeholder="Nombre" name="name" required />
+          <Textarea placeholder="Escribe tu mensaje" name="message" required className="resize-none" rows={3} />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 ">
           <Input
             type="email"
             placeholder="Correo electrónico"
             name="email"
             required
           />
-          <Input type="tel" placeholder="Teléfono" name="telefono" required />
+          <Input type="tel" placeholder="Teléfono" name="phone" required />
 
           <Button type="submit">Enviar</Button>
         </div>

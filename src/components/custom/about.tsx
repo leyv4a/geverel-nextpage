@@ -18,7 +18,7 @@ export default function About() {
           </h4>
         </article>
       {/* </div> */}
-      <Image src={QualitySoftware} width={500} alt="Software de calidad." loading="lazy"/>
+      <Image src={QualitySoftware} width={500} alt="Software de calidad." loading="lazy" fetchPriority="low"/>
       <article className="text-center w-full flex flex-col items-center">
           <h3 className="text-2xl md:text-6xl font-bold leading-6  bg-gradient-to-r from-[#000000] via-[#000000]  text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient">
           Nuestra misión es simple.
