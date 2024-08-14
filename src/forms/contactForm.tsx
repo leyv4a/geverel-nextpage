@@ -1,22 +1,42 @@
 "use client";
 import { contactForm } from "@/actions/contactActions";
-import { useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import React, { useRef } from "react";
 
 export default function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const [error, setError] = React.useState(false);
 
   return (
+    <>
+      {/* <h2 className={error ? `opacity-100` : `opacity-0`}>Error</h2> */}
       <form
-      className="accent-black flex justify-center items-center  flex-col md:flex-row w-[100%]"
+        className="accent-black flex md:justify-start justify-center items-center md:items-start  flex-col md:flex-row w-[100%]"
         ref={formRef}
         action={async (formData) => {
           const contactData = await contactForm(formData);
-          //   const product = await createProduct(formData);
           console.log(contactData);
           formRef.current?.reset();
         }}
       >
-     
+        <div className="flex flex-col gap-2 mb-2 md:me-2">
+          <Input type="text" placeholder="Nombre" name="nombre" required />
+          <Textarea placeholder="Escribe tu mensaje" name="mensaje" required className="resize-none" />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Input
+            type="email"
+            placeholder="Correo electrónico"
+            name="email"
+            required
+          />
+          <Input type="tel" placeholder="Teléfono" name="telefono" required />
+
+          <Button type="submit">Enviar</Button>
+        </div>
       </form>
+    </>
   );
 }
