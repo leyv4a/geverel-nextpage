@@ -41,7 +41,8 @@ export default function Hero() {
         </article>
         <aside className="w-full flex items-center justify-center">
           <Image
-          fetchPriority="high"
+            fetchPriority="high"
+            priority
             width={500}
             src={HeroImage}
             alt="Software Developer"

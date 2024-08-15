@@ -1,28 +1,38 @@
 "use server";
 
+import { ContactSchema } from "@/lib/schemas/formSchemas";
+
 // import {randomUUID} from 'crypto'
 
 export const contactForm = async (formData: FormData) => {
 
-  const contactName = formData.get("name");
-  const contactPhone = formData.get("phone");
-  const contactEmail = formData.get("email");
-  const contactMessage = formData.get("message");
-  
-  if (!contactName || !contactPhone || !contactEmail || !contactMessage) return;
-
   const contactData = {
-    name: contactName,
-    contact: contactPhone,
-    email: contactEmail,
-    message: contactMessage,
+    name: formData.get("name"),
+    phone: formData.get("phone"),
+    email:  formData.get("email"),
+    message: formData.get("message"),
+  };
+  
+  const result = ContactSchema.safeParse(contactData);
+
+  if (!result.success) {
+    return {
+      success: false,
+      errors: result.error.issues
+    }
+  }
+
+
+  const validatedData = {
+   ...result.data,
     timestamp: new Date().toISOString(),
     status: 'pending',
     // ip: req.ip,
     // id: randomUUID(),
   };
 
-
-    console.log(contactData)
-  return contactData
+  return {
+    success: true,
+    data: validatedData,
+  }
 };
