@@ -1,3 +1,4 @@
+import QuoteForm from "@/forms/quoteForm";
 import React from "react";
 
 export default function Cotizar() {
@@ -11,8 +12,7 @@ export default function Cotizar() {
           Ingresa los detalles y en tu correo tendras un documento PDF profesional en las siguientes 24 horas
         </p>
       </article>
-      <section>
-      </section>
+      <QuoteForm/>
     </main>
   );
 }
