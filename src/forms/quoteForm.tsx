@@ -1,6 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
@@ -18,14 +26,38 @@ import React from "react";
 export default function QuoteForm() {
   const [selectTipo, setSelectTipo] = React.useState("");
 
+  const [checkbox1, setCheckbox1] = React.useState<string[]>([]);
+  const [checkbox2, setCheckbox2] = React.useState<string[]>([]);
+
+  const handleCheckbox1 = (id: string) => {
+    setCheckbox1(
+      (prev) =>
+        prev.includes(id)
+          ? prev.filter((option) => option !== id) // Remueve si ya está seleccionado
+          : [...prev, id] // Agrega si no está seleccionado
+    );
+  };
+  const handleCheckbox2 = (id: string) => {
+    setCheckbox2(
+      (prev) =>
+        prev.includes(id)
+          ? prev.filter((option) => option !== id) // Remueve si ya está seleccionado
+          : [...prev, id] // Agrega si no está seleccionado
+    );
+  };
   const renderSelect = () => {
     switch (selectTipo) {
       case "web":
-        return <DesarrolloWebForm />;
+        return (
+          <DesarrolloWebForm
+            handleCheckbox={handleCheckbox1}
+            handleCheckbox1={handleCheckbox2}
+          />
+        );
       case "app":
-        return <AplicacionesWebForm />;
+        return <AplicacionesWebForm handleCheckbox={handleCheckbox1} />;
       case "api":
-        return <ApiForm />;
+        return <ApiForm handleCheckbox={handleCheckbox1} />;
       case "other":
         return <OtherForm />;
       default:
@@ -33,20 +65,19 @@ export default function QuoteForm() {
     }
   };
 
-  const makeAQuote = async (formData : FormData)=> {
-    // console.log(`name: ${formData.get("name")},
-    //   email: ${formData.get("email")},
-    //   phone:${ formData.get("phone")},
-    //   business:${formData.get("businessLine")}
-    //   enterprise : ${formData.get("enterprise")}`)
+  const makeAQuote = async (formData: FormData) => {
     const result = QuoteSquema.safeParse({
       name: formData.get("name"),
       email: formData.get("email"),
       phone: formData.get("phone"),
       businessLine: formData.get("businessLine"),
       enterprise: formData.get("enterprise"),
-    })
-  } 
+      service: formData.get("service"),
+      checkbox1: checkbox1,
+      checkbox2: checkbox2,
+    });
+    console.log(result);
+  };
   return (
     <>
       <form
@@ -102,7 +133,7 @@ export default function QuoteForm() {
             Datos del proyecto
           </h2>
           <div className="flex flex-col gap-2 w-full">
-            <Select onValueChange={(e) => setSelectTipo(e)}>
+            <Select name="service" onValueChange={(e) => setSelectTipo(e)}>
               <SelectTrigger className=" rounded-none  ">
                 <SelectValue placeholder="Selecciona un tipo de proyecto" />
               </SelectTrigger>
@@ -120,15 +151,17 @@ export default function QuoteForm() {
             {/* <Input type="text" placeholder="Otro" name="otro"className="rounded-none" /> */}
           </div>
         </div>
-        <Button type="submit">
-          Enviar
-        </Button>
+        <Button type="submit">Enviar</Button>
       </form>
     </>
   );
 }
+type CheckboxProps = {
+  handleCheckbox: (value: string) => void;
+  handleCheckbox1: (value: string) => void;
+};
 
-function DesarrolloWebForm() {
+function DesarrolloWebForm({ handleCheckbox, handleCheckbox1 }: CheckboxProps) {
   const items = [
     {
       id: "dominion",
@@ -155,9 +188,7 @@ function DesarrolloWebForm() {
       label: "No cuento con nada de lo mencionado.",
     },
   ];
-  // as const;
 
-  // Pagina informativa, Cotizador en linea, Catalogo de productos sin venta, Bolsa de trabajo, Comercio electronico, Mantenimiento, Otros
   const items2 = [
     {
       id: "pagina",
@@ -192,7 +223,7 @@ function DesarrolloWebForm() {
     <>
       <p className="font-bold">Selecciona si ya cuentas con alguno de estos:</p>
       <div className="flex gap-2 flex-wrap px-1">
-        <Checkboxes options={items} />
+        <Checkboxes options={items} handleCheckbox={handleCheckbox} />
       </div>
       <Textarea
         placeholder="Enlista ejemplos de páginas web que te gusten para tu negocio:
@@ -201,13 +232,16 @@ function DesarrolloWebForm() {
       />
       <p className="font-bold">Funcionalidades requeridas.</p>
       <div className="flex gap-2 flex-wrap px-1">
-        <Checkboxes options={items2} />
+        <Checkboxes options={items2} handleCheckbox={handleCheckbox1} />
       </div>
     </>
   );
 }
-function AplicacionesWebForm() {
-  // Base de datos, Autenticación, Integraciones, Escalabilidad, Mantenimiento y soporte, Tecnologías específicas
+
+type CheckboxProps2 = {
+  handleCheckbox: (value: string) => void;
+};
+function AplicacionesWebForm({ handleCheckbox}: CheckboxProps2) {
   const items = [
     {
       id: "base",
@@ -238,18 +272,17 @@ function AplicacionesWebForm() {
     <>
       <p className="font-bold">Funcionalidades requeridas: </p>
       <div className="flex gap-2 flex-wrap px-1">
-        <Checkboxes options={items} />
+        <Checkboxes options={items} handleCheckbox={handleCheckbox} />
       </div>
       <Textarea
-        placeholder="Cuentanos un poco sobre tu proyecto:
-"
+        placeholder="Cuentanos un poco sobre tu proyecto:"
         className="resize-none rounded-none"
       />
     </>
   );
 }
-function ApiForm() {
-  // Autenticación, Documentación, Niveles de acceso, Versionamiento, Seguridad
+
+function ApiForm({ handleCheckbox}: CheckboxProps2) {
   const items = [
     {
       id: "autenticacion",
@@ -316,7 +349,7 @@ function ApiForm() {
     <>
       <p className="font-bold">Selecciona las características: </p>
       <div className="flex gap-2 flex-wrap px-1">
-        <Checkboxes options={items} />
+        <Checkboxes options={items} handleCheckbox={handleCheckbox}/>
       </div>
       <Textarea
         placeholder="Cuentanos un poco sobre tu proyecto:
@@ -341,17 +374,22 @@ function OtherForm() {
 
 type Props = {
   options: {
-    //  name: string,
     id: string;
     label: string;
   }[]; // Definición del tipo de las opciones
+  handleCheckbox: (value: string) => void;
 };
-function Checkboxes({ options }: Props) {
+function Checkboxes({ options, handleCheckbox }: Props) {
   return (
     <>
       {options.map((option) => (
         <div key={option.id} className="mb-2 flex gap-2">
-          <Checkbox name={option.id} id={option.id} className="mb-2 " />
+          <Checkbox
+            name={option.id}
+            id={option.id}
+            className="mb-2"
+            onCheckedChange={() => handleCheckbox(option.id)}
+          />
           <label
             htmlFor={option.id}
             className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -364,27 +402,30 @@ function Checkboxes({ options }: Props) {
   );
 }
 
-//   type RadioProps ={
-//     options : {
-//       id: string;
-//       label: string;
-//     }
-//   }[]
+type RadioProps = {
+  options: {
+    //  name: string,
+    id: string;
+    label: string;
+  }[]; // Definición del tipo de las opciones
+};
 
-function RadioGrouping({ options }: Props){ 
-  return(
+function RadioGrouping({ options }: RadioProps) {
+  return (
     <>
-  <RadioGroup
-  defaultChecked
-  defaultValue="rest"
-  className="flex gap-2">
-    {options.map((option, key) => (
-      <div key={key} className="flex gap-2 items-center flex-wrap px-1">
-        <RadioGroupItem value={option.id}  id={option.id} />
-        <label className="text-sm font-medium -ms-1 cursor-pointer leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor={option.id}>{option.label}</label>
-      </div>
-    ))}
-  </RadioGroup>
+      <RadioGroup defaultChecked defaultValue="rest" className="flex gap-2">
+        {options.map((option, key) => (
+          <div key={key} className="flex gap-2 items-center flex-wrap px-1">
+            <RadioGroupItem value={option.id} id={option.id} />
+            <label
+              className="text-sm font-medium -ms-1 cursor-pointer leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              htmlFor={option.id}
+            >
+              {option.label}
+            </label>
+          </div>
+        ))}
+      </RadioGroup>
     </>
-  )
+  );
 }

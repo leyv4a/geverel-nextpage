@@ -79,8 +79,8 @@ export const QuoteSquema = z.object({
     .max(15, {
       message: "Debes elegir un servicio",
     }).optional(),
-    checkbox1: z.string().optional(),
-    checkbox2: z.string().optional(),
+    checkbox1:z.array(z.string()).refine((value) => value.some((item) => item)).optional(),
+    checkbox2: z.array(z.string()).refine((value) => value.some((item) => item)).optional(),
     radiogroup1: z.string().optional(),
     textarea: z.string().optional()
     //campos del desarrollo web(checkgroup de cosas con las que ya cuentas, textarea de ejemplos de paginas web, checkgroup de funcionalidades requeridas)
