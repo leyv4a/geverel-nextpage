@@ -110,7 +110,7 @@ export default function ContactForm() {
           />
           <p className="text-red-500 -mt-2 text-xs">{phoneError}</p>
 
-          <Button type="submit">Enviar</Button>
+          <Button disabled={loading} type="submit">{loading ? 'Enviando...' : 'Enviar'}</Button>
         </div>
       </form>
     </>
