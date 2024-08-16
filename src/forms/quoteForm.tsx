@@ -1,14 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
@@ -28,6 +20,16 @@ export default function QuoteForm() {
 
   const [checkbox1, setCheckbox1] = React.useState<string[]>([]);
   const [checkbox2, setCheckbox2] = React.useState<string[]>([]);
+  const [textArea, setTextArea] = React.useState<string>("");
+  const [radioGroup, setRadioGroup] = React.useState<string>('rest');
+
+  const handleRadioChange = (value : string)  => {
+    setRadioGroup(value);
+  }
+
+  const handleTextArea = (value: string) => {
+    setTextArea(value);
+  } 
 
   const handleCheckbox1 = (id: string) => {
     setCheckbox1(
@@ -52,14 +54,15 @@ export default function QuoteForm() {
           <DesarrolloWebForm
             handleCheckbox={handleCheckbox1}
             handleCheckbox1={handleCheckbox2}
+            handleTextArea={handleTextArea}
           />
         );
       case "app":
-        return <AplicacionesWebForm handleCheckbox={handleCheckbox1} />;
+        return <AplicacionesWebForm handleCheckbox={handleCheckbox1} handleTextArea={handleTextArea}/>;
       case "api":
-        return <ApiForm handleCheckbox={handleCheckbox1} />;
+        return <ApiForm handleCheckbox={handleCheckbox1} handleTextArea={handleTextArea} handleRadioChange={handleRadioChange}/>;
       case "other":
-        return <OtherForm />;
+        return <OtherForm handleTextArea={handleTextArea}/>;
       default:
         return null;
     }
@@ -75,6 +78,8 @@ export default function QuoteForm() {
       service: formData.get("service"),
       checkbox1: checkbox1,
       checkbox2: checkbox2,
+      textarea: textArea,
+      radiogroup1: radioGroup
     });
     console.log(result);
   };
@@ -88,7 +93,7 @@ export default function QuoteForm() {
         {/* ¡Formulario! */}
         {/* Client info section */}
         <div className="flex flex-col items-start gap-2 me-2 w-full">
-          <h2 className="bg-primary text-white text-xl w-full text-center -mb-2">
+          <h2 className=" text-white text-xl w-full text-center -mb-2 bg-gradient-to-r from-[#7e02b7]   to-[#c240ff] bg-300% animate-gradient">
             Datos del cliente
           </h2>
           <div className="flex flex-col md:flex-row gap-2 w-full">
@@ -129,7 +134,7 @@ export default function QuoteForm() {
 
         {/* Project info section */}
         <div className="flex flex-col items-start gap-2 me-2 w-full">
-          <h2 className="bg-primary text-white text-xl w-full text-center -mb-2">
+          <h2 className="bg-gradient-to-r from-[#7e02b7]   to-[#c240ff] bg-300% animate-gradient text-white text-xl w-full text-center -mb-2">
             Datos del proyecto
           </h2>
           <div className="flex flex-col gap-2 w-full">
@@ -150,8 +155,8 @@ export default function QuoteForm() {
             {renderSelect()}
             {/* <Input type="text" placeholder="Otro" name="otro"className="rounded-none" /> */}
           </div>
+        <Button className="self-end bg-gradient-to-r from-[#7e02b7]   to-[#c240ff] bg-300% animate-gradient" type="submit">Enviar</Button>
         </div>
-        <Button type="submit">Enviar</Button>
       </form>
     </>
   );
@@ -159,9 +164,14 @@ export default function QuoteForm() {
 type CheckboxProps = {
   handleCheckbox: (value: string) => void;
   handleCheckbox1: (value: string) => void;
+  handleTextArea: (value: string) => void;
 };
 
-function DesarrolloWebForm({ handleCheckbox, handleCheckbox1 }: CheckboxProps) {
+type TextAreaProps= {
+  handleTextArea: (value: string) => void;
+}
+
+function DesarrolloWebForm({ handleCheckbox, handleCheckbox1, handleTextArea}: CheckboxProps) {
   const items = [
     {
       id: "dominion",
@@ -226,6 +236,7 @@ function DesarrolloWebForm({ handleCheckbox, handleCheckbox1 }: CheckboxProps) {
         <Checkboxes options={items} handleCheckbox={handleCheckbox} />
       </div>
       <Textarea
+      onChange={(e) => handleTextArea(e.target.value)}
         placeholder="Enlista ejemplos de páginas web que te gusten para tu negocio:
 "
         className="resize-none rounded-none"
@@ -240,8 +251,9 @@ function DesarrolloWebForm({ handleCheckbox, handleCheckbox1 }: CheckboxProps) {
 
 type CheckboxProps2 = {
   handleCheckbox: (value: string) => void;
+  handleTextArea: (value: string) => void;
 };
-function AplicacionesWebForm({ handleCheckbox}: CheckboxProps2) {
+function AplicacionesWebForm({ handleCheckbox, handleTextArea}: CheckboxProps2) {
   const items = [
     {
       id: "base",
@@ -275,6 +287,7 @@ function AplicacionesWebForm({ handleCheckbox}: CheckboxProps2) {
         <Checkboxes options={items} handleCheckbox={handleCheckbox} />
       </div>
       <Textarea
+      onChange={(e) => handleTextArea(e.target.value)}
         placeholder="Cuentanos un poco sobre tu proyecto:"
         className="resize-none rounded-none"
       />
@@ -282,7 +295,12 @@ function AplicacionesWebForm({ handleCheckbox}: CheckboxProps2) {
   );
 }
 
-function ApiForm({ handleCheckbox}: CheckboxProps2) {
+type ApiProps = {
+  handleCheckbox: (value: string) => void;
+  handleTextArea: (value: string) => void;
+  handleRadioChange: (value: string) => void;
+};
+function ApiForm({ handleCheckbox, handleTextArea, handleRadioChange}: ApiProps) {
   const items = [
     {
       id: "autenticacion",
@@ -352,18 +370,20 @@ function ApiForm({ handleCheckbox}: CheckboxProps2) {
         <Checkboxes options={items} handleCheckbox={handleCheckbox}/>
       </div>
       <Textarea
+      onChange={(e) => handleTextArea(e.target.value)}
         placeholder="Cuentanos un poco sobre tu proyecto:
 "
         className="resize-none rounded-none"
       />
-        <RadioGrouping options={items2}/>
+        <RadioGrouping options={items2} handleRadioChange={handleRadioChange}/>
     </>
   );
 }
-function OtherForm() {
+function OtherForm({handleTextArea} : TextAreaProps) {
   return (
     <>
        <Textarea
+       onChange={(e) => handleTextArea(e.target.value)}
         placeholder="Cuentanos un poco sobre tu proyecto:
 "
         className="resize-none rounded-none"
@@ -378,8 +398,9 @@ type Props = {
     label: string;
   }[]; // Definición del tipo de las opciones
   handleCheckbox: (value: string) => void;
+
 };
-function Checkboxes({ options, handleCheckbox }: Props) {
+function Checkboxes({ options, handleCheckbox}: Props) {
   return (
     <>
       {options.map((option) => (
@@ -407,13 +428,14 @@ type RadioProps = {
     //  name: string,
     id: string;
     label: string;
-  }[]; // Definición del tipo de las opciones
+  }[];
+  handleRadioChange: (value: string) => void; // Definición del tipo de las opciones
 };
 
-function RadioGrouping({ options }: RadioProps) {
+function RadioGrouping({ options, handleRadioChange  }: RadioProps) {
   return (
     <>
-      <RadioGroup defaultChecked defaultValue="rest" className="flex gap-2">
+      <RadioGroup defaultChecked defaultValue="rest" className="flex gap-2" onValueChange={value => handleRadioChange(value)}>
         {options.map((option, key) => (
           <div key={key} className="flex gap-2 items-center flex-wrap px-1">
             <RadioGroupItem value={option.id} id={option.id} />

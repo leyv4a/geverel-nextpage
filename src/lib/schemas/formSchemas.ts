@@ -85,16 +85,9 @@ export const QuoteSquema = z.object({
     checkbox2: z
     .array(z.string())
     .optional()
-    .refine((value) => value?.length === 0 || value?.length > 0, {
+    .refine((value) => value?.length === 0 || (value?.length ?? 0), {
       message: "Debe seleccionar al menos una opción",
     }),
     radiogroup1: z.string().optional(),
     textarea: z.string().optional()
-    //campos del desarrollo web(checkgroup de cosas con las que ya cuentas, textarea de ejemplos de paginas web, checkgroup de funcionalidades requeridas)
-    //campos de aplicaciones web(checkbox de funcionalidades requeridas, textarea de cuentanos sobre tu proyecto )
-
-    //campos de api(checkgroup de las caracteristicas,textarea de cuentanos sobre tu proyecto, radiogroup de el tipo de api (rest, soap, graphql))
-
-    //campos de 'otros' (textarea de cuentanos un poco de tu proyecto)
-
 });
