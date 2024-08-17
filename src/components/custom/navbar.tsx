@@ -54,7 +54,11 @@ const Navbar: React.FC = () => {
     <>
       <nav className="flex w-full fixed top-0 backdrop-blur-xl bg-white/30 z-50 border-b items-center justify-between h-[4rem] px-4 md:px-20">
         <div className="flex items-center gap-12">
-          <Link href="/">
+          <Link href="/" onClick={() => {
+                      setTimeout(()=>{
+                        setNavOpen(false)
+                      },500)
+                  }}  >
             <Image
               className="md:hidden"
               width={40}
@@ -125,6 +129,11 @@ const Navbar: React.FC = () => {
                   href={"/" + link.route}
                   className="font-medium hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
                   key={index}
+                  onClick={() => {
+                    setTimeout(()=>{
+                      setNavOpen(false)
+                    },500)
+                }}  
                 >
                   {link.name}
                 </Link>

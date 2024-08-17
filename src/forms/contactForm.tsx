@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ContactSchema } from "@/lib/schemas/formSchemas";
 import React, { useRef } from "react";
-
+import { useToast } from "@/components/ui/use-toast"
 
 
 export default function ContactForm() {
@@ -15,6 +15,7 @@ export default function ContactForm() {
   const [phoneError, setPhoneError] = React.useState("");
   const [messageError, setMessageError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const { toast } = useToast()
 
   const makeAContact = async (formData: FormData) => {
     setLoading(true);
@@ -58,7 +59,12 @@ export default function ContactForm() {
         if (error.path[0] === "message") setMessageError(error.message);
       });
     }
-    console.log('¡Formulario enviado correctamente!')
+    
+    toast({
+      title: 'Formulario enviado correctamente!',
+      description:  `Tu mensaje ha sido enviado correctamente ${response.data?.name}`  
+      // duration: 5000,
+    })
     setLoading(false);
   };
 

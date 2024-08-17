@@ -3,6 +3,8 @@ import { Inter} from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/custom/navbar";
 import {poppins, b612, allan} from '@/lib/fonts';
+import { Toaster } from "@/components/ui/toaster"
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +25,7 @@ export default function RootLayout({
       <body className={`${inter.className} ${b612} ${poppins} ${allan}`}>
       <Navbar/>
       {children}
+      <Toaster />
       </body>
     </html>
   );

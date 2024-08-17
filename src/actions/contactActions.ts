@@ -36,3 +36,7 @@ export const contactForm = async (formData: FormData) => {
     data: validatedData,
   }
 };
+
+export const getAQuote = async (formData: FormData) => {
+
+};
