@@ -1,4 +1,5 @@
 "use client";
+import { getAQuote } from "@/actions/contactActions";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -81,7 +82,8 @@ export default function QuoteForm() {
       textarea: textArea,
       radiogroup1: radioGroup
     });
-    console.log(result);
+    
+    // const response = await getAQuote(result: FormData);
   };
   return (
     <>

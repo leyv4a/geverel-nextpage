@@ -17,10 +17,20 @@ export default function ContactForm() {
   const [loading, setLoading] = React.useState(false);
   const { toast } = useToast()
 
+  const setErrorMessages = (issues: { path: (string | number)[], message: string }[]) =>{
+    issues.forEach((issue) => {
+      if (issue.path[0] === "name") setNameError(issue.message);
+      else if (issue.path[0] === "email") setEmailError(issue.message);
+      else if (issue.path[0] === "phone") setPhoneError(issue.message);
+      else if (issue.path[0] === "message") setMessageError(issue.message);
+    });
+  }
+
   const makeAContact = async (formData: FormData) => {
     setLoading(true);
-    
-    //reset form and errors
+    try {
+      
+      //reset form and errors
     formRef.current?.reset();
     setNameError("");
     setEmailError("");
@@ -29,35 +39,25 @@ export default function ContactForm() {
     
     //client side validation
     const result = ContactSchema.safeParse({
-      name: formData.get("name"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      message: formData.get("message"),
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      message: formData.get("message") as string,
     });
+    
     //in case of error
     if (!result.success) {
       //We have to loop through the error.issues and set each error to each input
-      result.error.issues.forEach((issue) => {
-        //set each error to each input
-        if (issue.path[0] == "name") setNameError(issue.message);
-        else if (issue.path[0] == "email") setEmailError(issue.message);
-        else if (issue.path[0] == "phone") setPhoneError(issue.message);
-        else if (issue.path[0] == "message") setMessageError(issue.message);
-      });
-      setLoading(false);
+        setErrorMessages(result.error.issues);
       return;
     }
 
     //call the action
     const response = await contactForm(formData);
 
-    if (!response.success) {
-      response.errors?.forEach((error: any) => {
-        if (error.path[0] === "name") setNameError(error.message);
-        if (error.path[0] === "email") setEmailError(error.message);
-        if (error.path[0] === "phone") setPhoneError(error.message);
-        if (error.path[0] === "message") setMessageError(error.message);
-      });
+    if (!response.success && response.errors) {
+      setErrorMessages(response.errors)
+      return;
     }
     
     toast({
@@ -65,7 +65,12 @@ export default function ContactForm() {
       description:  `Tu mensaje ha sido enviado correctamente ${response.data?.name}`  
       // duration: 5000,
     })
-    setLoading(false);
+    } catch (e : any) {
+      console.log(e.message)
+    }finally{
+      setLoading(false);
+    }
+    
   };
 
   return (

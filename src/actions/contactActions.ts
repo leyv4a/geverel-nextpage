@@ -38,5 +38,18 @@ export const contactForm = async (formData: FormData) => {
 };
 
 export const getAQuote = async (formData: FormData) => {
+  const quoteData = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    phone: formData.get("phone"),
+    businessLine: formData.get("businessLine"),
+    enterprise: formData.get("enterprise"),
+    service: formData.get("service"),
+    checkbox1: formData.get("checkbox1"),
+    checkbox2: formData.get("checkbox2"),
+    textarea: formData.get("textArea"),
+    radiogroup1: formData.get("radioGroup")
+  }
 
+  console.log(quoteData)
 };
