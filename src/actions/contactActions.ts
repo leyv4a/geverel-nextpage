@@ -48,9 +48,13 @@ export const getAQuote = async (formData: FormData) => {
     service: formData.get("service"),
     checkbox1: formData.get("checkbox1"),
     checkbox2: formData.get("checkbox2"),
-    textarea: formData.get("textArea"),
+    textarea: formData.get("textarea"),
     radiogroup1: formData.get("radioGroup")
   }
-
   console.log(quoteData)
+  return {
+    success: true,
+    data: quoteData,
+  }
+
 };

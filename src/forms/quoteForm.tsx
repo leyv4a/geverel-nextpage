@@ -17,20 +17,46 @@ import { QuoteSquema } from "@/lib/schemas/formSchemas";
 import React from "react";
 
 export default function QuoteForm() {
+  // project select
   const [selectTipo, setSelectTipo] = React.useState("");
 
+  //form ref
+  const formRef = React.useRef<HTMLFormElement>(null);
+
+  //errors
+  const [nameError, setNameError] = React.useState("");
+  const [emailError, setEmailError] = React.useState("");
+  const [phoneError, setPhoneError] = React.useState("");
+  const [empresaError, setEmpresaError] = React.useState("");
+  const [giroError, setGiroError] = React.useState("");
+  const [serviceError, setServiceError] = React.useState("");
+
+  const setErrorMessages = (issues: { path: (string | number)[], message: string }[]) =>{
+    issues.forEach((issue) => {
+      if (issue.path[0] === "name") setNameError(issue.message);
+      else if (issue.path[0] === "email") setEmailError(issue.message);
+      else if (issue.path[0] === "phone") setPhoneError(issue.message);
+      else if (issue.path[0] === "enterprise") setEmpresaError(issue.message);
+      else if (issue.path[0] === "businessLine") setGiroError(issue.message);
+      else if (issue.path[0] === "service") setServiceError(issue.message);
+    });
+  }
+
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  // fields 
   const [checkbox1, setCheckbox1] = React.useState<string[]>([]);
   const [checkbox2, setCheckbox2] = React.useState<string[]>([]);
   const [textArea, setTextArea] = React.useState<string>("");
-  const [radioGroup, setRadioGroup] = React.useState<string>('rest');
+  const [radioGroup, setRadioGroup] = React.useState<string>("rest");
 
-  const handleRadioChange = (value : string)  => {
+  const handleRadioChange = (value: string) => {
     setRadioGroup(value);
-  }
+  };
 
   const handleTextArea = (value: string) => {
     setTextArea(value);
-  } 
+  };
 
   const handleCheckbox1 = (id: string) => {
     setCheckbox1(
@@ -59,46 +85,80 @@ export default function QuoteForm() {
           />
         );
       case "app":
-        return <AplicacionesWebForm handleCheckbox={handleCheckbox1} handleTextArea={handleTextArea}/>;
+        return (
+          <AplicacionesWebForm
+            handleCheckbox={handleCheckbox1}
+            handleTextArea={handleTextArea}
+          />
+        );
       case "api":
-        return <ApiForm handleCheckbox={handleCheckbox1} handleTextArea={handleTextArea} handleRadioChange={handleRadioChange}/>;
+        return (
+          <ApiForm
+            handleCheckbox={handleCheckbox1}
+            handleTextArea={handleTextArea}
+            handleRadioChange={handleRadioChange}
+          />
+        );
       case "other":
-        return <OtherForm handleTextArea={handleTextArea}/>;
+        return <OtherForm handleTextArea={handleTextArea} />;
       default:
         return null;
     }
   };
 
-  const makeAQuote = async (formData: FormData) => {
-    const result = QuoteSquema.safeParse({
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("phone") as string,
-      businessLine: formData.get("businessLine") as string,
-      enterprise: formData.get("enterprise") as string,
-      service: formData.get("service") as string,
-      checkbox1: checkbox1 as string[],
-      checkbox2: checkbox2 as string[],
-      textarea: textArea as string,
-      radiogroup1: radioGroup as string
-    });
-    if (!result.success) {
-      // Handle error or display error message
-      console.error("Form data validation failed:", result.error);
-      return;
-    }
+  //validate server response
+  //toast success!!!
+  // catch and finally
 
-    // Create a new FormData instance and append form data
-  const newFormData = new FormData();
-  for (const [key, value] of Object.entries(result.data)) {
-    newFormData.append(key, Array.isArray(value) ? value.join(',') : value);
-  }
-    
-    const response = await getAQuote(newFormData);
+  const makeAQuote = async (formData: FormData) => {
+    setIsLoading(true);
+    try {
+
+      // Reset form
+      formRef.current?.reset();
+      setSelectTipo("")
+
+      //client side validation
+      const result = QuoteSquema.safeParse({
+        name: formData.get("name") as string,
+        email: formData.get("email") as string,
+        phone: formData.get("phone") as string,
+        businessLine: formData.get("businessLine") as string,
+        enterprise: formData.get("enterprise") as string,
+        // service: formData.get("service") as string,
+        service:  selectTipo as string,
+        checkbox1: checkbox1 as string[],
+        checkbox2: checkbox2 as string[],
+        textarea: textArea as string,
+        radiogroup1: radioGroup as string,
+      });
+      if (!result.success) {
+        // Handle error or display error message
+        setErrorMessages(result.error.issues);
+        console.log(result.error)
+        return;
+      }
+  
+      // Create a new FormData instance and append form data
+      const newFormData = new FormData();
+      for (const [key, value] of Object.entries(result.data)) {
+        newFormData.append(key, Array.isArray(value) ? value.join(",") : value);
+      }
+  
+      const response = await getAQuote(newFormData);
+
+      console.log(response)
+    } catch (error) {
+      
+    }finally{
+      setIsLoading(false);
+    }
+   
   };
   return (
     <>
       <form
+        ref={formRef}
         action={makeAQuote}
         autoComplete="off"
         className="container mx-auto flex flex-col md:flex-row justify-center w-full"
@@ -109,40 +169,63 @@ export default function QuoteForm() {
           <h2 className=" text-white text-xl w-full text-center -mb-2 bg-gradient-to-r from-[#7e02b7] to-[#c240ff] bg-300% animate-gradient">
             Datos del cliente
           </h2>
-          <div className="flex flex-col md:flex-row gap-2 w-full">
+          <div className="flex flex-col md:flex-row gap-2 w-full ">
+            <div className="flex flex-col w-full gap-2">
             <Input
               type="text"
               placeholder="Nombre"
               name="name"
-              className="rounded-none"
+              className={` rounded-none ${
+                nameError ? 'ring-2 ring-red-500' : ''
+              }`}
             />
+           <p className="text-red-500 -mt-2 text-xs">{nameError}</p>
+            </div>
+            <div className="flex flex-col w-full  gap-2">
             <Input
               type="tel"
               placeholder="Telefono"
               name="phone"
-              className="rounded-none"
+              className={` rounded-none ${
+                phoneError ? 'ring-2 ring-red-500' : ''
+              }`}
             />
+             <p className="text-red-500 -mt-2 text-xs">{phoneError}</p>
+             </div>
           </div>
           <div className="flex flex-col md:flex-row gap-2 w-full">
+          <div className="flex flex-col w-full  gap-2">
             <Input
               type="text"
               placeholder="Empresa"
               name="enterprise"
-              className="rounded-none"
+              className={` rounded-none ${
+                empresaError ? 'ring-2 ring-red-500' : ''
+              }`}
             />
+             <p className="text-red-500 -mt-2 text-xs">{empresaError}</p>
+             </div>
+            <div  className="flex flex-col w-full  gap-2">
             <Input
               type="text"
               placeholder="Giro"
               name="businessLine"
-              className="rounded-none"
+              className={` rounded-none ${
+                giroError ? 'ring-2 ring-red-500' : ''
+              }`}
             />
+             <p className="text-red-500 -mt-2 text-xs">{giroError}</p>
+            </div>
           </div>
           <Input
             type="mail"
             placeholder="Correo"
             name="email"
-            className="rounded-none mb-2"
+            className={` rounded-none ${
+              emailError ? 'ring-2 ring-red-500' : ''
+            }`}
           />
+           <p className="text-red-500 -mt-2 text-xs">{emailError}</p>
         </div>
 
         {/* Project info section */}
@@ -151,8 +234,11 @@ export default function QuoteForm() {
             Datos del proyecto
           </h2>
           <div className="flex flex-col gap-2 w-full">
-            <Select name="service" onValueChange={(e) => setSelectTipo(e)}>
-              <SelectTrigger className=" rounded-none  ">
+            <Select name="service" value={selectTipo} onValueChange={(e) => setSelectTipo(e)}>
+              <SelectTrigger className={` rounded-none ${
+              serviceError ? 'ring-2 ring-red-500' : ''
+            }`}
+          >
                 <SelectValue placeholder="Selecciona un tipo de proyecto" />
               </SelectTrigger>
               <SelectContent>
@@ -165,10 +251,16 @@ export default function QuoteForm() {
                 </SelectGroup>
               </SelectContent>
             </Select>
+            <p className="text-red-500 -mt-2 text-xs">{serviceError}</p>
             {renderSelect()}
             {/* <Input type="text" placeholder="Otro" name="otro"className="rounded-none" /> */}
           </div>
-        <Button className="self-end bg-gradient-to-r from-[#7e02b7]   to-[#c240ff] bg-300% animate-gradient" type="submit">Enviar</Button>
+          <Button
+            className="self-end bg-gradient-to-r from-[#7e02b7]   to-[#c240ff] bg-300% animate-gradient"
+            type="submit"
+          >
+            Enviar
+          </Button>
         </div>
       </form>
     </>
@@ -180,11 +272,15 @@ type CheckboxProps = {
   handleTextArea: (value: string) => void;
 };
 
-type TextAreaProps= {
+type TextAreaProps = {
   handleTextArea: (value: string) => void;
-}
+};
 
-function DesarrolloWebForm({ handleCheckbox, handleCheckbox1, handleTextArea}: CheckboxProps) {
+function DesarrolloWebForm({
+  handleCheckbox,
+  handleCheckbox1,
+  handleTextArea,
+}: CheckboxProps) {
   const items = [
     {
       id: "dominion",
@@ -249,7 +345,7 @@ function DesarrolloWebForm({ handleCheckbox, handleCheckbox1, handleTextArea}: C
         <Checkboxes options={items} handleCheckbox={handleCheckbox} />
       </div>
       <Textarea
-      onChange={(e) => handleTextArea(e.target.value)}
+        onChange={(e) => handleTextArea(e.target.value)}
         placeholder="Enlista ejemplos de páginas web que te gusten para tu negocio:
 "
         className="resize-none rounded-none"
@@ -266,7 +362,10 @@ type CheckboxProps2 = {
   handleCheckbox: (value: string) => void;
   handleTextArea: (value: string) => void;
 };
-function AplicacionesWebForm({ handleCheckbox, handleTextArea}: CheckboxProps2) {
+function AplicacionesWebForm({
+  handleCheckbox,
+  handleTextArea,
+}: CheckboxProps2) {
   const items = [
     {
       id: "base",
@@ -300,7 +399,7 @@ function AplicacionesWebForm({ handleCheckbox, handleTextArea}: CheckboxProps2) 
         <Checkboxes options={items} handleCheckbox={handleCheckbox} />
       </div>
       <Textarea
-      onChange={(e) => handleTextArea(e.target.value)}
+        onChange={(e) => handleTextArea(e.target.value)}
         placeholder="Cuentanos un poco sobre tu proyecto:"
         className="resize-none rounded-none"
       />
@@ -313,7 +412,11 @@ type ApiProps = {
   handleTextArea: (value: string) => void;
   handleRadioChange: (value: string) => void;
 };
-function ApiForm({ handleCheckbox, handleTextArea, handleRadioChange}: ApiProps) {
+function ApiForm({
+  handleCheckbox,
+  handleTextArea,
+  handleRadioChange,
+}: ApiProps) {
   const items = [
     {
       id: "autenticacion",
@@ -339,14 +442,16 @@ function ApiForm({ handleCheckbox, handleTextArea, handleRadioChange}: ApiProps)
   const items2 = [
     {
       id: "rest",
-      label: "Rest"
-    },{
+      label: "Rest",
+    },
+    {
       id: "graphql",
-      label: "GraphQL"
-    },{
+      label: "GraphQL",
+    },
+    {
       id: "soap",
-      label: "SOAP"
-    }
+      label: "SOAP",
+    },
     // {
     //   id: "publico",
     //   label: "Público.",
@@ -375,28 +480,28 @@ function ApiForm({ handleCheckbox, handleTextArea, handleRadioChange}: ApiProps)
     //   id: "rest",
     //   label: "REST.",
     // },
-  ]
+  ];
   return (
     <>
       <p className="font-bold">Selecciona las características: </p>
       <div className="flex gap-2 flex-wrap px-1">
-        <Checkboxes options={items} handleCheckbox={handleCheckbox}/>
+        <Checkboxes options={items} handleCheckbox={handleCheckbox} />
       </div>
       <Textarea
-      onChange={(e) => handleTextArea(e.target.value)}
+        onChange={(e) => handleTextArea(e.target.value)}
         placeholder="Cuentanos un poco sobre tu proyecto:
 "
         className="resize-none rounded-none"
       />
-        <RadioGrouping options={items2} handleRadioChange={handleRadioChange}/>
+      <RadioGrouping options={items2} handleRadioChange={handleRadioChange} />
     </>
   );
 }
-function OtherForm({handleTextArea} : TextAreaProps) {
+function OtherForm({ handleTextArea }: TextAreaProps) {
   return (
     <>
-       <Textarea
-       onChange={(e) => handleTextArea(e.target.value)}
+      <Textarea
+        onChange={(e) => handleTextArea(e.target.value)}
         placeholder="Cuentanos un poco sobre tu proyecto:
 "
         className="resize-none rounded-none"
@@ -411,9 +516,8 @@ type Props = {
     label: string;
   }[]; // Definición del tipo de las opciones
   handleCheckbox: (value: string) => void;
-
 };
-function Checkboxes({ options, handleCheckbox}: Props) {
+function Checkboxes({ options, handleCheckbox }: Props) {
   return (
     <>
       {options.map((option) => (
@@ -445,10 +549,15 @@ type RadioProps = {
   handleRadioChange: (value: string) => void; // Definición del tipo de las opciones
 };
 
-function RadioGrouping({ options, handleRadioChange  }: RadioProps) {
+function RadioGrouping({ options, handleRadioChange }: RadioProps) {
   return (
     <>
-      <RadioGroup defaultChecked defaultValue="rest" className="flex gap-2" onValueChange={value => handleRadioChange(value)}>
+      <RadioGroup
+        defaultChecked
+        defaultValue="rest"
+        className="flex gap-2"
+        onValueChange={(value) => handleRadioChange(value)}
+      >
         {options.map((option, key) => (
           <div key={key} className="flex gap-2 items-center flex-wrap px-1">
             <RadioGroupItem value={option.id} id={option.id} />

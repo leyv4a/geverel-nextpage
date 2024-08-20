@@ -5,3 +5,4 @@
 <!-- # el svg del footer debe tener un overflow hidden -->
 # En cierta pantalla donde ya es mobile, el navbar no se abre, modificar el hidden.
 # Que cuando envias el formulario y un campo  esta mal, solo borre ese campo y mantenga los otros datos
+# Hacer el campo phone opcional

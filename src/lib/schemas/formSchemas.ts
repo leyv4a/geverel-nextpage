@@ -79,9 +79,11 @@ export const QuoteSquema = z.object({
     .max(15, {
       message: "Debes elegir un servicio",
     }).optional(),
-    checkbox1:z.array(z.string()).refine((value) => value.some((item) => item), {
+    checkbox1:z .array(z.string())
+    .optional()
+    .refine((value) => value?.length === 0 || (value?.length ?? 0), {
       message: "Debe seleccionar al menos una opción",
-    }).optional(),
+    }),
     checkbox2: z
     .array(z.string())
     .optional()
