@@ -71,19 +71,30 @@ export default function QuoteForm() {
 
   const makeAQuote = async (formData: FormData) => {
     const result = QuoteSquema.safeParse({
-      name: formData.get("name"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      businessLine: formData.get("businessLine"),
-      enterprise: formData.get("enterprise"),
-      service: formData.get("service"),
-      checkbox1: checkbox1,
-      checkbox2: checkbox2,
-      textarea: textArea,
-      radiogroup1: radioGroup
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      businessLine: formData.get("businessLine") as string,
+      enterprise: formData.get("enterprise") as string,
+      service: formData.get("service") as string,
+      checkbox1: checkbox1 as string[],
+      checkbox2: checkbox2 as string[],
+      textarea: textArea as string,
+      radiogroup1: radioGroup as string
     });
+    if (!result.success) {
+      // Handle error or display error message
+      console.error("Form data validation failed:", result.error);
+      return;
+    }
+
+    // Create a new FormData instance and append form data
+  const newFormData = new FormData();
+  for (const [key, value] of Object.entries(result.data)) {
+    newFormData.append(key, Array.isArray(value) ? value.join(',') : value);
+  }
     
-    // const response = await getAQuote(result: FormData);
+    const response = await getAQuote(newFormData);
   };
   return (
     <>
@@ -95,7 +106,7 @@ export default function QuoteForm() {
         {/* ¡Formulario! */}
         {/* Client info section */}
         <div className="flex flex-col items-start gap-2 me-2 w-full">
-          <h2 className=" text-white text-xl w-full text-center -mb-2 bg-gradient-to-r from-[#7e02b7]   to-[#c240ff] bg-300% animate-gradient">
+          <h2 className=" text-white text-xl w-full text-center -mb-2 bg-gradient-to-r from-[#7e02b7] to-[#c240ff] bg-300% animate-gradient">
             Datos del cliente
           </h2>
           <div className="flex flex-col md:flex-row gap-2 w-full">

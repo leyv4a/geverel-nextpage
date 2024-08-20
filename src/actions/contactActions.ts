@@ -22,7 +22,6 @@ export const contactForm = async (formData: FormData) => {
     }
   }
 
-
   const validatedData = {
    ...result.data,
     timestamp: new Date().toISOString(),
@@ -30,6 +29,8 @@ export const contactForm = async (formData: FormData) => {
     // ip: req.ip,
     // id: randomUUID(),
   };
+
+  //mandar a la base de datos
 
   return {
     success: true,

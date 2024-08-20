@@ -62,7 +62,7 @@ export default function ContactForm() {
     
     toast({
       title: 'Formulario enviado correctamente!',
-      description:  `Tu mensaje ha sido enviado correctamente ${response.data?.name}`  
+      description:  `Tu mensaje ha sido enviado correctamente ${response.data?.name ?? ''}`  
       // duration: 5000,
     })
     } catch (e : any) {
