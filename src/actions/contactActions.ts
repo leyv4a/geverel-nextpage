@@ -1,6 +1,6 @@
 "use server";
 
-import { ContactSchema } from "@/lib/schemas/formSchemas";
+import { ContactSchema, QuoteSquema } from "@/lib/schemas/formSchemas";
 
 // import {randomUUID} from 'crypto'
 
@@ -51,10 +51,28 @@ export const getAQuote = async (formData: FormData) => {
     textarea: formData.get("textarea"),
     radiogroup1: formData.get("radioGroup")
   }
-  console.log(quoteData)
-  return {
-    success: true,
-    data: quoteData,
+
+  const result = QuoteSquema.safeParse(quoteData);
+  
+  if (!result.success) {
+    return {
+      success: false,
+      errors: result.error.issues
+    }
   }
 
+  //mandar a la base de datos
+
+  const validatedData = {
+    ...result.data,
+     timestamp: new Date().toISOString(),
+     status: 'pending',
+     // ip: req.ip,
+     // id: randomUUID(),
+   };
+
+  return {
+    success: true,
+    data: validatedData,
+  }
 };

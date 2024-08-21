@@ -115,8 +115,6 @@ export default function QuoteForm() {
     setIsLoading(true);
     try {
 
-       
-
       //client side validation
       const result = QuoteSquema.safeParse({
         name: formData.get("name") as string,
@@ -166,6 +164,7 @@ export default function QuoteForm() {
         title: '¡Cotizacion enviada correctamente!',
         description:  `Tu mensaje ha sido enviado correctamente ${response.data?.name ?? ''}`  
       })
+
     } catch (e: any) {
       console.log(e.message)
     }finally{
@@ -274,10 +273,11 @@ export default function QuoteForm() {
             {/* <Input type="text" placeholder="Otro" name="otro"className="rounded-none" /> */}
           </div>
           <Button
+           disabled={isLoading}
             className="self-end bg-gradient-to-r from-[#7e02b7]   to-[#c240ff] bg-300% animate-gradient"
             type="submit"
           >
-            Enviar
+           {isLoading? 'Enviando...' : 'Enviar'}
           </Button>
         </div>
       </form>
