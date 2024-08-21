@@ -45,16 +45,14 @@ export const QuoteSquema = z.object({
     message: "Ingrese un email válido",
   }),
   phone: z
-    .string({
-      message: "Ingrese un número de teléfono válido",
-    })
-    .length(10, {
-      message: "El teléfono debe tener exactamente 10 caracteres",
-    })
-    .regex(/^\d+$/, {
-      message: "El teléfono solo debe contener números",
-    })
-    .optional(),
+  .string()
+  .optional()
+  .refine((value) => !value || value.length === 10, {
+    message: "El teléfono debe tener exactamente 10 caracteres",
+  })
+  .refine((value) => !value || /^\d+$/.test(value), {
+    message: "El teléfono solo debe contener números",
+  }),
   enterprise: z
     .string()
     .min(3, {

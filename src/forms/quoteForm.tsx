@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
 import { QuoteSquema } from "@/lib/schemas/formSchemas";
 import React from "react";
 
@@ -114,9 +115,7 @@ export default function QuoteForm() {
     setIsLoading(true);
     try {
 
-      // Reset form
-      formRef.current?.reset();
-      setSelectTipo("")
+       
 
       //client side validation
       const result = QuoteSquema.safeParse({
@@ -125,7 +124,6 @@ export default function QuoteForm() {
         phone: formData.get("phone") as string,
         businessLine: formData.get("businessLine") as string,
         enterprise: formData.get("enterprise") as string,
-        // service: formData.get("service") as string,
         service:  selectTipo as string,
         checkbox1: checkbox1 as string[],
         checkbox2: checkbox2 as string[],
@@ -147,9 +145,29 @@ export default function QuoteForm() {
   
       const response = await getAQuote(newFormData);
 
-      console.log(response)
-    } catch (error) {
-      
+      if (!response.success) {
+
+        //setErrorMessages from the server response
+        return({
+        })
+      }
+     
+      // Reset form
+      formRef.current?.reset();
+      setSelectTipo("")
+        setNameError("");
+        setEmailError("");
+        setPhoneError("");
+        setEmpresaError("");
+        setGiroError("");
+        setServiceError("");
+
+      toast({
+        title: '¡Cotizacion enviada correctamente!',
+        description:  `Tu mensaje ha sido enviado correctamente ${response.data?.name ?? ''}`  
+      })
+    } catch (e: any) {
+      console.log(e.message)
     }finally{
       setIsLoading(false);
     }
