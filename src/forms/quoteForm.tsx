@@ -112,6 +112,15 @@ export default function QuoteForm() {
   const makeAQuote = async (formData: FormData) => {
     setIsLoading(true);
     try {
+        // Reset form
+        formRef.current?.reset();
+        setSelectTipo("");
+        setNameError("");
+        setEmailError("");
+        setPhoneError("");
+        setEmpresaError("");
+        setGiroError("");
+        setServiceError("");
       //client side validation
       const result = QuoteSquema.safeParse({
         name: formData.get("name") as string,
@@ -128,20 +137,25 @@ export default function QuoteForm() {
       if (!result.success) {
         // Handle error or display error message
         setErrorMessages(result.error.issues);
-        console.log(result.error);
         return;
       }
-
       // Create a new FormData instance and append form data
       const newFormData = new FormData();
       for (const [key, value] of Object.entries(result.data)) {
-        newFormData.append(key, Array.isArray(value) ? value.join(",") : value);
+        if (Array.isArray(value)) {
+          newFormData.append(key, JSON.stringify(value));
+        } else {
+          newFormData.append(key, value as string);
+        }
       }
-
+  
       const response = await getAQuote(newFormData);
 
-      if (!response.success) {
-        //setErrorMessages from the server response
+      if (!response.success && response.errors) {
+        //  set errors from the server response
+        setErrorMessages(response.errors)
+        console.log('response')
+        console.log(response)
         return {};
       }
 
@@ -155,15 +169,7 @@ export default function QuoteForm() {
       console.log(e.message);
     } finally {
       setIsLoading(false);
-      // Reset form
-      formRef.current?.reset();
-      setSelectTipo("");
-      setNameError("");
-      setEmailError("");
-      setPhoneError("");
-      setEmpresaError("");
-      setGiroError("");
-      setServiceError("");
+    
     }
   };
   return (

@@ -19,7 +19,7 @@ export const contactForm = async (formData: FormData) => {
       success: false,
       errors: result.error.issues,
     };
-  };
+  }
 
   const validatedData = {
     ...result.data,
@@ -61,7 +61,7 @@ export const contactForm = async (formData: FormData) => {
     };
   } finally {
     client.release();
-  };
+  }
 };
 
 export const getAQuote = async (formData: FormData) => {
@@ -72,22 +72,23 @@ export const getAQuote = async (formData: FormData) => {
     businessLine: formData.get("businessLine"),
     enterprise: formData.get("enterprise"),
     service: formData.get("service"),
-    checkbox1: formData.get("checkbox1"),
-    checkbox2: formData.get("checkbox2"),
+    // checkbox1: formData.get("checkbox1"),
+    // checkbox2: formData.get("checkbox2"),
+    checkbox1: formData.get("checkbox1") ? JSON.parse(formData.get("checkbox1")) : [],
+  checkbox2: formData.get("checkbox2") ? JSON.parse(formData.get("checkbox2")) : [],
     textarea: formData.get("textarea"),
-    radiogroup1: formData.get("radioGroup"),
+    radiogroup1: formData.get("radiogroup1"),
   };
 
   const result = QuoteSquema.safeParse(quoteData);
 
   if (!result.success) {
+    console.log('errorrrr acaa en el safeparse del actionsss')
     return {
       success: false,
       errors: result.error.issues,
     };
   }
-
-  //mandar a la base de datos
 
   const validatedData = {
     ...result.data,
@@ -97,8 +98,36 @@ export const getAQuote = async (formData: FormData) => {
     // id: randomUUID(),
   };
 
-  return {
-    success: true,
-    data: validatedData,
-  };
+
+
+  const client = await pool.connect();
+  try {
+    const query = `INSERT INTO quotes (name, email, business_line, enterprise, service, checkbox1, checkbox2, textarea, radiogroup1) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    `;
+    const values = [
+      validatedData.name,
+      validatedData.email,
+      validatedData.businessLine,
+      validatedData.enterprise,
+      validatedData.service,
+      validatedData.checkbox1 ||'',
+      validatedData.checkbox2 ||'',
+      validatedData.textarea || '',
+      validatedData.radiogroup1 || ''
+    ];
+
+    const res = await client.query(query, values);
+
+    return {
+      success: true,
+      data: res.rows[0],
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: "Failed to save contact information",
+    }
+  } finally {
+    client.release();
+  }
 };
