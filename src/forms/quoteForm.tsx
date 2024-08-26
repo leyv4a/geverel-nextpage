@@ -32,7 +32,9 @@ export default function QuoteForm() {
   const [giroError, setGiroError] = React.useState("");
   const [serviceError, setServiceError] = React.useState("");
 
-  const setErrorMessages = (issues: { path: (string | number)[], message: string }[]) =>{
+  const setErrorMessages = (
+    issues: { path: (string | number)[]; message: string }[]
+  ) => {
     issues.forEach((issue) => {
       if (issue.path[0] === "name") setNameError(issue.message);
       else if (issue.path[0] === "email") setEmailError(issue.message);
@@ -41,11 +43,11 @@ export default function QuoteForm() {
       else if (issue.path[0] === "businessLine") setGiroError(issue.message);
       else if (issue.path[0] === "service") setServiceError(issue.message);
     });
-  }
+  };
 
   const [isLoading, setIsLoading] = React.useState(false);
 
-  // fields 
+  // fields
   const [checkbox1, setCheckbox1] = React.useState<string[]>([]);
   const [checkbox2, setCheckbox2] = React.useState<string[]>([]);
   const [textArea, setTextArea] = React.useState<string>("");
@@ -107,14 +109,9 @@ export default function QuoteForm() {
     }
   };
 
-  //validate server response
-  //toast success!!!
-  // catch and finally
-
   const makeAQuote = async (formData: FormData) => {
     setIsLoading(true);
     try {
-
       //client side validation
       const result = QuoteSquema.safeParse({
         name: formData.get("name") as string,
@@ -122,7 +119,7 @@ export default function QuoteForm() {
         phone: formData.get("phone") as string,
         businessLine: formData.get("businessLine") as string,
         enterprise: formData.get("enterprise") as string,
-        service:  selectTipo as string,
+        service: selectTipo as string,
         checkbox1: checkbox1 as string[],
         checkbox2: checkbox2 as string[],
         textarea: textArea as string,
@@ -131,46 +128,43 @@ export default function QuoteForm() {
       if (!result.success) {
         // Handle error or display error message
         setErrorMessages(result.error.issues);
-        console.log(result.error)
+        console.log(result.error);
         return;
       }
-  
+
       // Create a new FormData instance and append form data
       const newFormData = new FormData();
       for (const [key, value] of Object.entries(result.data)) {
         newFormData.append(key, Array.isArray(value) ? value.join(",") : value);
       }
-  
+
       const response = await getAQuote(newFormData);
 
       if (!response.success) {
-
         //setErrorMessages from the server response
-        return({
-        })
+        return {};
       }
-     
-      // Reset form
-      formRef.current?.reset();
-      setSelectTipo("")
-        setNameError("");
-        setEmailError("");
-        setPhoneError("");
-        setEmpresaError("");
-        setGiroError("");
-        setServiceError("");
 
       toast({
-        title: '¡Cotizacion enviada correctamente!',
-        description:  `Tu mensaje ha sido enviado correctamente ${response.data?.name ?? ''}`  
-      })
-
+        title: "¡Cotizacion enviada correctamente!",
+        description: `Tu mensaje ha sido enviado correctamente ${
+          response.data?.name ?? ""
+        }`,
+      });
     } catch (e: any) {
-      console.log(e.message)
-    }finally{
+      console.log(e.message);
+    } finally {
       setIsLoading(false);
+      // Reset form
+      formRef.current?.reset();
+      setSelectTipo("");
+      setNameError("");
+      setEmailError("");
+      setPhoneError("");
+      setEmpresaError("");
+      setGiroError("");
+      setServiceError("");
     }
-   
   };
   return (
     <>
@@ -188,50 +182,50 @@ export default function QuoteForm() {
           </h2>
           <div className="flex flex-col md:flex-row gap-2 w-full ">
             <div className="flex flex-col w-full gap-2">
-            <Input
-              type="text"
-              placeholder="Nombre"
-              name="name"
-              className={` rounded-none ${
-                nameError ? 'ring-2 ring-red-500' : ''
-              }`}
-            />
-           <p className="text-red-500 -mt-2 text-xs">{nameError}</p>
+              <Input
+                type="text"
+                placeholder="Nombre"
+                name="name"
+                className={` rounded-none ${
+                  nameError ? "ring-2 ring-red-500" : ""
+                }`}
+              />
+              <p className="text-red-500 -mt-2 text-xs">{nameError}</p>
             </div>
             <div className="flex flex-col w-full  gap-2">
-            <Input
-              type="tel"
-              placeholder="Telefono"
-              name="phone"
-              className={` rounded-none ${
-                phoneError ? 'ring-2 ring-red-500' : ''
-              }`}
-            />
-             <p className="text-red-500 -mt-2 text-xs">{phoneError}</p>
-             </div>
+              <Input
+                type="tel"
+                placeholder="Telefono"
+                name="phone"
+                className={` rounded-none ${
+                  phoneError ? "ring-2 ring-red-500" : ""
+                }`}
+              />
+              <p className="text-red-500 -mt-2 text-xs">{phoneError}</p>
+            </div>
           </div>
           <div className="flex flex-col md:flex-row gap-2 w-full">
-          <div className="flex flex-col w-full  gap-2">
-            <Input
-              type="text"
-              placeholder="Empresa"
-              name="enterprise"
-              className={` rounded-none ${
-                empresaError ? 'ring-2 ring-red-500' : ''
-              }`}
-            />
-             <p className="text-red-500 -mt-2 text-xs">{empresaError}</p>
-             </div>
-            <div  className="flex flex-col w-full  gap-2">
-            <Input
-              type="text"
-              placeholder="Giro"
-              name="businessLine"
-              className={` rounded-none ${
-                giroError ? 'ring-2 ring-red-500' : ''
-              }`}
-            />
-             <p className="text-red-500 -mt-2 text-xs">{giroError}</p>
+            <div className="flex flex-col w-full  gap-2">
+              <Input
+                type="text"
+                placeholder="Empresa"
+                name="enterprise"
+                className={` rounded-none ${
+                  empresaError ? "ring-2 ring-red-500" : ""
+                }`}
+              />
+              <p className="text-red-500 -mt-2 text-xs">{empresaError}</p>
+            </div>
+            <div className="flex flex-col w-full  gap-2">
+              <Input
+                type="text"
+                placeholder="Giro"
+                name="businessLine"
+                className={` rounded-none ${
+                  giroError ? "ring-2 ring-red-500" : ""
+                }`}
+              />
+              <p className="text-red-500 -mt-2 text-xs">{giroError}</p>
             </div>
           </div>
           <Input
@@ -239,10 +233,10 @@ export default function QuoteForm() {
             placeholder="Correo"
             name="email"
             className={` rounded-none ${
-              emailError ? 'ring-2 ring-red-500' : ''
+              emailError ? "ring-2 ring-red-500" : ""
             }`}
           />
-           <p className="text-red-500 -mt-2 text-xs">{emailError}</p>
+          <p className="text-red-500 -mt-2 text-xs">{emailError}</p>
         </div>
 
         {/* Project info section */}
@@ -251,11 +245,16 @@ export default function QuoteForm() {
             Datos del proyecto
           </h2>
           <div className="flex flex-col gap-2 w-full">
-            <Select name="service" value={selectTipo} onValueChange={(e) => setSelectTipo(e)}>
-              <SelectTrigger className={` rounded-none ${
-              serviceError ? 'ring-2 ring-red-500' : ''
-            }`}
-          >
+            <Select
+              name="service"
+              value={selectTipo}
+              onValueChange={(e) => setSelectTipo(e)}
+            >
+              <SelectTrigger
+                className={` rounded-none ${
+                  serviceError ? "ring-2 ring-red-500" : ""
+                }`}
+              >
                 <SelectValue placeholder="Selecciona un tipo de proyecto" />
               </SelectTrigger>
               <SelectContent>
@@ -273,11 +272,11 @@ export default function QuoteForm() {
             {/* <Input type="text" placeholder="Otro" name="otro"className="rounded-none" /> */}
           </div>
           <Button
-           disabled={isLoading}
+            disabled={isLoading}
             className="self-end bg-gradient-to-r from-[#7e02b7]   to-[#c240ff] bg-300% animate-gradient"
             type="submit"
           >
-           {isLoading? 'Enviando...' : 'Enviar'}
+            {isLoading ? "Enviando..." : "Enviar"}
           </Button>
         </div>
       </form>

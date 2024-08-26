@@ -30,12 +30,7 @@ export default function ContactForm() {
     setLoading(true);
     try {
       
-      //reset form and errors
-    formRef.current?.reset();
-    setNameError("");
-    setEmailError("");
-    setPhoneError("");
-    setMessageError("");
+      
     
     //client side validation
     const result = ContactSchema.safeParse({
@@ -69,6 +64,12 @@ export default function ContactForm() {
       console.log(e.message)
     }finally{
       setLoading(false);
+      //reset form and errors
+      formRef.current?.reset();
+      setNameError("");
+      setEmailError("");
+      setPhoneError("");
+      setMessageError("");
     }
   };
 
