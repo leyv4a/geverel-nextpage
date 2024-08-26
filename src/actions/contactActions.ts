@@ -102,11 +102,12 @@ export const getAQuote = async (formData: FormData) => {
 
   const client = await pool.connect();
   try {
-    const query = `INSERT INTO quotes (name, email, business_line, enterprise, service, checkbox1, checkbox2, textarea, radiogroup1) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    const query = `INSERT INTO quotes (name, email,phone, business_line, enterprise, service, checkbox1, checkbox2, textarea, radiogroup1) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     `;
     const values = [
       validatedData.name,
       validatedData.email,
+      validatedData.phone,
       validatedData.businessLine,
       validatedData.enterprise,
       validatedData.service,
