@@ -137,6 +137,7 @@ export default function QuoteForm() {
       if (!result.success) {
         // Handle error or display error message
         setErrorMessages(result.error.issues);
+        console.log(result)
         return;
       }
       // Create a new FormData instance and append form data
@@ -154,8 +155,6 @@ export default function QuoteForm() {
       if (!response.success && response.errors) {
         //  set errors from the server response
         setErrorMessages(response.errors)
-        console.log('response')
-        console.log(response)
         return {};
       }
 
