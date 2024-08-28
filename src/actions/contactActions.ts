@@ -35,10 +35,10 @@ export const contactForm = async (formData: FormData) => {
       RETURNING *;
     `;
     const values = [
-      validatedData.name,
-      validatedData.phone,
-      validatedData.email,
-      validatedData.message,
+      validatedData.name.toLowerCase(),
+      validatedData.phone?.toLowerCase(),
+      validatedData.email.toLowerCase(),
+      validatedData.message.toLowerCase(),
       validatedData.status,
       validatedData.timestamp,
     ];
@@ -102,15 +102,15 @@ export const getAQuote = async (formData: FormData) => {
     const query = `INSERT INTO quotes (name, email,phone, business_line, enterprise, service, checkbox1, checkbox2, textarea, radiogroup1,timestamp) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     `;
     const values = [
-      validatedData.name,
-      validatedData.email,
-      validatedData.phone,
-      validatedData.businessLine,
-      validatedData.enterprise,
-      validatedData.service,
-      validatedData.checkbox1 || "",
+      validatedData.name.toLowerCase(),
+      validatedData.email.toLowerCase(),
+      validatedData.phone?.toLowerCase(),
+      validatedData.businessLine.toLowerCase(),
+      validatedData.enterprise.toLowerCase(),
+      validatedData.service?.toLowerCase(),
+      validatedData.checkbox1|| "",
       validatedData.checkbox2 || "",
-      validatedData.textarea || "",
+      validatedData.textarea?.toLowerCase() || "",
       validatedData.radiogroup1 || "",
       validatedData.timestamp,
     ];
