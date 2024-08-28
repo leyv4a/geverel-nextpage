@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /cotizar
+Sitemap: https://www.geverel.com/sitemap.xml
