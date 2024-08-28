@@ -31,6 +31,7 @@ export default function QuoteForm() {
   const [empresaError, setEmpresaError] = React.useState("");
   const [giroError, setGiroError] = React.useState("");
   const [serviceError, setServiceError] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const setErrorMessages = (
     issues: { path: (string | number)[]; message: string }[]
@@ -44,8 +45,6 @@ export default function QuoteForm() {
       else if (issue.path[0] === "service") setServiceError(issue.message);
     });
   };
-
-  const [isLoading, setIsLoading] = React.useState(false);
 
   // fields
   const [checkbox1, setCheckbox1] = React.useState<string[]>([]);
@@ -109,52 +108,54 @@ export default function QuoteForm() {
     }
   };
 
-  const makeAQuote = async (formData: FormData) => {
+  const makeAQuote = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setIsLoading(true);
+
+    const formData = new FormData(formRef.current!);
     try {
-        // Reset form
-        formRef.current?.reset();
-        setSelectTipo("");
-        setNameError("");
-        setEmailError("");
-        setPhoneError("");
-        setEmpresaError("");
-        setGiroError("");
-        setServiceError("");
+      // Reset form
+      formRef.current?.reset();
+      setSelectTipo("");
+      setNameError("");
+      setEmailError("");
+      setPhoneError("");
+      setEmpresaError("");
+      setGiroError("");
+      setServiceError("");
       //client side validation
       const result = QuoteSquema.safeParse({
-        name: formData.get("name") as string,
-        email: formData.get("email") as string,
-        phone: formData.get("phone") as string,
-        businessLine: formData.get("businessLine") as string,
-        enterprise: formData.get("enterprise") as string,
-        service: selectTipo as string,
-        checkbox1: checkbox1 as string[],
-        checkbox2: checkbox2 as string[],
-        textarea: textArea as string,
-        radiogroup1: radioGroup as string,
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        businessLine: formData.get("businessLine"),
+        enterprise: formData.get("enterprise"),
+        service: selectTipo,
+        checkbox1: checkbox1,
+        checkbox2: checkbox2,
+        textarea: textArea,
+        radiogroup1: radioGroup,
       });
       if (!result.success) {
         // Handle error or display error message
         setErrorMessages(result.error.issues);
-        console.log(result)
         return;
       }
       // Create a new FormData instance and append form data
       const newFormData = new FormData();
-      for (const [key, value] of Object.entries(result.data)) {
+      Object.entries(result.data).forEach(([key, value]) => {
         if (Array.isArray(value)) {
           newFormData.append(key, JSON.stringify(value));
         } else {
           newFormData.append(key, value as string);
         }
-      }
-  
+      });
+
       const response = await getAQuote(newFormData);
 
       if (!response.success && response.errors) {
         //  set errors from the server response
-        setErrorMessages(response.errors)
+        setErrorMessages(response.errors);
         return {};
       }
 
@@ -168,14 +169,13 @@ export default function QuoteForm() {
       console.log(e.message);
     } finally {
       setIsLoading(false);
-    
     }
   };
   return (
     <>
       <form
         ref={formRef}
-        action={makeAQuote}
+        onSubmit={makeAQuote}
         autoComplete="off"
         className="container mx-auto flex flex-col md:flex-row justify-center w-full"
       >

@@ -27,8 +27,11 @@ export default function ContactForm() {
     });
   };
 
-  const makeAContact = async (formData: FormData) => {
+  const makeAContact = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Evitar el comportamiento por defecto del formulario
     setLoading(true);
+
+    const formData = new FormData(formRef.current!);
     try {
       //reset form and errors
       formRef.current?.reset();
@@ -80,7 +83,7 @@ export default function ContactForm() {
         autoComplete="off"
         className="accent-black flex md:justify-start justify-center content-center md:items-start  flex-col md:flex-row w-[100%] "
         ref={formRef}
-        action={makeAContact}
+        onSubmit={makeAContact}
       >
         <div className="flex flex-col gap-2 mb-2 md:me-2 ">
           <Input
