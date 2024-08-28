@@ -2,7 +2,6 @@
 import pool from "@/lib/db";
 import { ContactSchema, QuoteSquema } from "@/lib/schemas/formSchemas";
 
-// import {randomUUID} from 'crypto'
 
 export const contactForm = async (formData: FormData) => {
   const contactData = {
@@ -25,8 +24,6 @@ export const contactForm = async (formData: FormData) => {
     ...result.data,
     timestamp: new Date().toISOString(),
     status: "pending",
-    // ip: req.ip,
-    // id: randomUUID(),
   };
 
   //mandar a la base de datos
@@ -83,7 +80,6 @@ export const getAQuote = async (formData: FormData) => {
   const result = QuoteSquema.safeParse(quoteData);
 
   if (!result.success) {
-    console.log('errorrrr acaa en el safeparse del actionsss')
     return {
       success: false,
       errors: result.error.issues,
@@ -102,7 +98,7 @@ export const getAQuote = async (formData: FormData) => {
 
   const client = await pool.connect();
   try {
-    const query = `INSERT INTO quotes (name, email,phone, business_line, enterprise, service, checkbox1, checkbox2, textarea, radiogroup1) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    const query = `INSERT INTO quotes (name, email,phone, business_line, enterprise, service, checkbox1, checkbox2, textarea, radiogroup1,timestamp) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     `;
     const values = [
       validatedData.name,
@@ -114,7 +110,8 @@ export const getAQuote = async (formData: FormData) => {
       validatedData.checkbox1 ||'',
       validatedData.checkbox2 ||'',
       validatedData.textarea || '',
-      validatedData.radiogroup1 || ''
+      validatedData.radiogroup1 || '',
+      validatedData.timestamp
     ];
 
     const res = await client.query(query, values);
