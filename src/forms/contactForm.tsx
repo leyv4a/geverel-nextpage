@@ -34,7 +34,7 @@ export default function ContactForm() {
     const formData = new FormData(formRef.current!);
     try {
       //reset form and errors
-      formRef.current?.reset();
+      
       setNameError("");
       setEmailError("");
       setPhoneError("");
@@ -54,6 +54,7 @@ export default function ContactForm() {
         setErrorMessages(result.error.issues);
         return;
       }
+      formRef.current?.reset();
 
       //call the action
       const response = await contactForm(formData);

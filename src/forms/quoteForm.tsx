@@ -115,7 +115,6 @@ export default function QuoteForm() {
     const formData = new FormData(formRef.current!);
     try {
       // Reset form
-      formRef.current?.reset();
       setSelectTipo("");
       setNameError("");
       setEmailError("");
@@ -141,6 +140,8 @@ export default function QuoteForm() {
         setErrorMessages(result.error.issues);
         return;
       }
+      formRef.current?.reset();
+
       // Create a new FormData instance and append form data
       const newFormData = new FormData();
       Object.entries(result.data).forEach(([key, value]) => {
