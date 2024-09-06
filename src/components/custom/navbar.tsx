@@ -18,18 +18,30 @@ const Navbar: React.FC = () => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (window.location.pathname === "/") {
-      const hash = window.location.hash;
-      if (hash) {
-        const id = hash.replace("#", "");
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+useEffect(() => {
+  if (typeof window !== 'undefined' && window.location.pathname === "/") {
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, []);
+  }
+}, []);
+// useEffect(() => {
+//   if (window.location.pathname === "/") {
+//     const hash = window.location.hash;
+//     if (hash) {
+//       const id = hash.replace("#", "");
+//       const element = document.getElementById(id);
+//       if (element) {
+//         element.scrollIntoView({ behavior: "smooth" });
+//       }
+//     }
+//   }
+// }, []);
 
   const handleScrollTo = (id: string) => {
     if (window.location.pathname !== "/") {

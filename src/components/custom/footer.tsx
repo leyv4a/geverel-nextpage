@@ -20,7 +20,6 @@ export default function Footer() {
           <h2 className="text-center md:text-start text-xl md:text-4xl font-semibold bg-gradient-to-r from-[#000000] via-[#000000] text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient">
             Contactanos
           </h2>
-          {/* <ContactForm form={form} onSubmit={onSubmit}/> */}
           <ContactForm/>
           <p className="text-xs md:max-w-[70%] text-center md:text-start">
             Al hacer uso de este formulario, estás aceptando nuestra política de

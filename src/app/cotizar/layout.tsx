@@ -4,8 +4,7 @@ import { Inter} from "next/font/google";
 import "../globals.css";
 import Navbar from "../../components/custom/navbar";
 import {poppins, b612, allan} from '@/lib/fonts';
-import { Toaster } from "@/components/ui/toaster"
-
+import { Suspense } from 'react';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,25 +20,26 @@ export const metadata: Metadata = {
       type: 'website',
     },
     robots: {
-      index: true,
+      index: false,
       follow: true,
     },
     alternates: {
       canonical: 'https://www.geverel.com/cotizar',
     },
   };
-export default function RootLayout({
+export default function CotizarLayout({
     children,
   }: Readonly<{
     children: React.ReactNode;
   }>) {
     return (
-      <html lang="en">
-        <body className={`${inter.className} ${b612} ${poppins} ${allan}`}>
-        <Navbar/>
-        {children}
-        <Toaster />
-        </body>
-      </html>
+      <html lang="es">
+      <div className={`${inter.className} ${b612} ${poppins} ${allan}`}>
+        <Navbar />
+        <Suspense fallback={<div className="w-screen h-screen text-center flex items-center justify-center">Loading...</div>}>
+          {children}
+        </Suspense>
+      </div>
+    </html>
     );
   }
