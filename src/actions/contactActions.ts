@@ -88,7 +88,7 @@ export const getAQuote = async (formData: FormData) => {
       errors: result.error.issues,
     };
   }
-
+  
   const validatedData = {
     ...result.data,
     timestamp: new Date().toISOString(),
@@ -112,7 +112,7 @@ export const getAQuote = async (formData: FormData) => {
       validatedData.checkbox2 || "",
       validatedData.textarea?.toLowerCase() || "",
       validatedData.radiogroup1 || "",
-      validatedData.timestamp,
+      validatedData.timestamp
     ];
 
     const res = await client.query(query, values);

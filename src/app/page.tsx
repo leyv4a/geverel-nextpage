@@ -5,10 +5,12 @@ import Techs from "@/components/custom/techs";
 import SvgDivider from "@/components/custom/svg-shape-divider";
 import Proyectos from "@/components/custom/proyectos";
 import Footer from "@/components/custom/footer";
+import Navbar from '@/components/custom/navbar';
 
 export default function Home() {
   return (
     <>
+      <Navbar/>
     <Hero />
     <SvgDivider />
     <Suspense fallback={<div className="w-screen h-screen text-center flex items-center justify-center">Loading About...</div>}>
