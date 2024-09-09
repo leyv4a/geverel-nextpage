@@ -3,7 +3,7 @@ import React from "react";
 import AnimatedIcon from "../../../public/GabrielBlackLogoAnimated.gif";
 import Gaby from "../../../public/Gabackground.jpg";
 import Memogi from "../../../public/toilet.png";
-import Map from "../../../public/Ubi2.png";
+import Map from "../../../public/UbiMaps.png";
 import {
   Card,
   CardContent,
