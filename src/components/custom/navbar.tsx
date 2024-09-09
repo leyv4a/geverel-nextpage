@@ -89,7 +89,7 @@ useEffect(() => {
               link.isHome ? (
                 <button
                   key={index}
-                  className="font-medium hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
+                  className="font-bold hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
                   onClick={() => handleScrollTo(link.route)}
                 >
                   {link.name}
@@ -97,7 +97,7 @@ useEffect(() => {
               ) : (
                 <Link
                   href={"/" + link.route}
-                  className="font-medium hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
+                  className="font-bold hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
                   key={index}
                 >
                   {link.name}
@@ -131,7 +131,7 @@ useEffect(() => {
               link.isHome ? (
                 <button
                   key={index}
-                  className="font-medium hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
+                  className="font-bold hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
                   onClick={() => handleScrollTo(link.route)}
                 >
                   {link.name}
@@ -139,7 +139,7 @@ useEffect(() => {
               ) : (
                 <Link
                   href={"/" + link.route}
-                  className="font-medium hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
+                  className="font-bold hover:bg-gradient-to-r from-[#7e02b7] via-purple-700 hover:text-transparent bg-clip-text to-[#c240ff] bg-300% animate-gradient"
                   key={index}
                   onClick={() => {
                     setTimeout(()=>{

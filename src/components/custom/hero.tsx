@@ -3,13 +3,14 @@ import HeroImage from "../../../public/assets/hero-image.webp";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { Rocket } from "lucide-react";
+import {poppins, b612, allan, montserrat} from '@/lib/fonts';
 import Link from "next/link";
 export default function Hero() {
   return (
     <>
       <main className="mt-20 container mx-auto flex flex-col lg:flex-row gap-2 min-h-full items-center">
         <article className="text-center w-full flex flex-col items-center">
-          <h1 className="text-4xl -skew-y-2 rotate- font-b612 leading-7 bg-[#bababa] text-[#f2f2f2] py-2 md:w-1/2">
+          <h1 className={`text-4xl -skew-y-2 rotate- font-b612 leading-7 bg-[#bababa] text-[#f2f2f2] py-2 md:w-1/2`}>
             Del boceto al click:
           </h1>
           <h2 className="text-5xl font-poppins leading-10 ">

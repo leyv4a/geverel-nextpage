@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter} from "next/font/google";
 import "./globals.css";
-import {poppins, b612, allan} from '@/lib/fonts';
+import {poppins, b612, allan, montserrat} from '@/lib/fonts';
 import { Toaster } from "@/components/ui/toaster"
 
 
@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${inter.className} ${b612} ${poppins} ${allan}`}>
+      <body className={`${inter.className} ${b612} ${poppins} ${allan} ${montserrat}`}>
       {children}
       <Toaster />
       </body>

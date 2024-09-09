@@ -1,9 +1,7 @@
 
 import type { Metadata } from "next";
 import { Inter} from "next/font/google";
-import "../globals.css";
 import Navbar from "../../components/custom/navbar";
-import {poppins, b612, allan} from '@/lib/fonts';
 import { Suspense } from 'react';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -33,13 +31,11 @@ export default function CotizarLayout({
     children: React.ReactNode;
   }>) {
     return (
-      <html lang="es">
-      <div className={`${inter.className} ${b612} ${poppins} ${allan}`}>
+      <div>
         <Navbar />
         <Suspense fallback={<div className="w-screen h-screen text-center flex items-center justify-center">Loading...</div>}>
           {children}
         </Suspense>
       </div>
-    </html>
     );
   }

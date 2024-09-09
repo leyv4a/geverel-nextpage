@@ -22,6 +22,7 @@ const config = {
         b612 : ["var(--font-b612)"],
         poppins : ["var(--font-poppins)"],
         allan : ["var(--font-allan)"],
+        montserrat : ["var(--font-montserrat)"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -64,6 +65,10 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "loop-scroll" :{
+        from: {transform: "translateX(0)"},
+        to: {transform: "translateX(-100%)"},
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -87,6 +92,7 @@ const config = {
         },
       },
       animation: {
+        "loop-scroll": " loop-scroll 50s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         gradient: "animatedgradient 6s ease infinite alternate",
