@@ -160,7 +160,7 @@ export default function GabrielLeyva() {
               title="Sistema de control de placas"
               description="Proyecto escolar"
               tools="Java JavaSwing MySQL Hibernate"
-              source="/assets/projects/placas.png"
+              source="/assets/projects/placasitson.png"
             />
           </div>
 

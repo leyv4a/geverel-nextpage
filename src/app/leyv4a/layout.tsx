@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Gabriel Leyva - Geverel Software",
     description: "test",
-    keywords: "leyv4a, gabriel leyva, gabriel, leyva, itson, desarrollo web, desarrollo móvil, geverel, software,, sonora, guaymas, pagina web",
+    keywords: "leyv4a, gabriel leyva, gabriel, leyva, itson, desarrollo web, desarrollo móvil, geverel, software, sonora, guaymas, pagina web",
     authors: [{ name: 'Gabriel Leyva' }],
     openGraph: {
       title: "Gabriel Leyva - Geverel Software",
