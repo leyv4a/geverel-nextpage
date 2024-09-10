@@ -1,31 +1,31 @@
 import React from "react";
 import { Metadata } from "next";
 
-// export const metadata: Metadata = {
-//     title: "Gabriel Leyva - Geverel Software",
-//     description: "test",
-//     keywords: "leyv4a, gabriel leyva, gabriel, leyva, itson, desarrollo web, desarrollo móvil, geverel, software,, sonora, guaymas, pagina web",
-//     authors: [{ name: 'Gabriel Leyva' }],
-    // openGraph: {
-    //   title: "Geverel Software",
-    //   description: "Geverel Software ofrece soluciones personalizadas de desarrollo de software para empresas de todos los tamaños. Contáctanos para impulsar la transformación digital de tu negocio.",
-    //   images: [
-    //     {
-    //       url: 'https://geverel.com/assets/Geverel-Software.webp',
-    //       alt: 'Geverel Software',
-    //     },
-    //   ],
-    //   url: 'https://www.geverel.com/',
-    //   type: 'website',
-    // },
-//     robots: {
-//       index: true,
-//       follow: true,
-//     },
-//     alternates: {
-//       canonical: 'https://www.geverel.com/',
-//     },
-//   };
+export const metadata: Metadata = {
+    title: "Gabriel Leyva - Geverel Software",
+    description: "test",
+    keywords: "leyv4a, gabriel leyva, gabriel, leyva, itson, desarrollo web, desarrollo móvil, geverel, software,, sonora, guaymas, pagina web",
+    authors: [{ name: 'Gabriel Leyva' }],
+    openGraph: {
+      title: "Gabriel Leyva - Geverel Software",
+      description: "Desarrollador FullStack.",
+      images: [
+        {
+          url: 'https://geverel.com/Gabackground.jpg',
+          alt: 'Gabriel Leyva - Geverel Software',
+        },
+      ],
+      url: 'https://www.geverel.com/leyv4a',
+      type: 'website',
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: 'https://www.geverel.com/leyv4a',
+    },
+  };
 
 export default function Leyv4aLayout({
   children,

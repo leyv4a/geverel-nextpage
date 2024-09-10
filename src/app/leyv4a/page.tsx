@@ -204,8 +204,9 @@ export default function GabrielLeyva() {
             {Object.keys(iconUrls).map((slug) => (
               <div key={slug} className="flex ">
                 <Image
+                  title={`${slug.charAt(0).toUpperCase()+slug.slice(1)}`}
                   src={iconUrls[slug as IconSlug]}
-                  alt={slug}
+                  alt={`${slug.charAt(0).toUpperCase()+slug.slice(1)}`}
                   width={slug == "java" ? 50 : 60} // Ajusta el ancho según tus necesidades
                   height={60} // Ajusta la altura según tus necesidades
                   className="object-contain grayscale hover:grayscale-0 me-10 "
@@ -246,7 +247,10 @@ export default function GabrielLeyva() {
               <p>
                 &copy; 2024 Gabriel Leyva Esquivel.
               </p>
-              <p className="md:block hidden">Made with ❤️ and Next.js.</p>
+              {/* <p className="md:block hidden">Made with ❤️ and Next.js.</p> */}
+              {/* <p className="md:block hidden">Made with &#129293; and Next.js.</p> */} {/* White heart */}
+              {/* <p className="md:block hidden">Made with &#128150; and Next.js.</p> */} {/* Sparkling heart */}
+              <p className="md:block hidden">Made with &#128420; and Next.js.</p> {/* Black heart */}
             </div>
             <div className="w-1/2 flex  flex-col text-right text-gray-400 font-medium">
               <div className="flex justify-end">
@@ -282,8 +286,6 @@ const iconUrls: Record<IconSlug, string> = {
   mysql: "https://cdn.worldvectorlogo.com/logos/mysql-2.svg",
   tailwind: "https://cdn.worldvectorlogo.com/logos/tailwind-css-2.svg",
   electron: "https://cdn.worldvectorlogo.com/logos/electron-1.svg",
-
-  // electron: 'https://www.electronjs.org/assets/img/favicon.ico',
 };
 
 type ProjectCardProps = {
@@ -319,7 +321,7 @@ function ProjectCard({
     <Card className="overflow-hidden">
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
-          <p className="text-gray-300">
+          <div className="text-gray-300">
             {isLaboral ? (
               <p className="flex items-center gap-3">
                 <BriefcaseBusiness />
@@ -331,7 +333,7 @@ function ProjectCard({
                 Experiencia personal
               </p>
             )}
-          </p>
+          </div>
           <div className="flex gap-5">
             {isLatest ? (
               <Badge
@@ -359,12 +361,12 @@ function ProjectCard({
             )}
           </div>
         </CardTitle>
-        <CardDescription className="flex flex-col gap-0">
-          <h2 className="text-2xl font-bold text-foreground lh-none">
+        <CardDescription id="acaa" className="flex flex-col gap-0">
+          <span className="text-2xl font-bold text-foreground lh-none">
             {title}
-          </h2>
-          <p className="text-slate-700 ">{description}</p>
-          <p className="text-foreground">{tools}</p>
+          </span>
+          <span className="text-slate-700 ">{description}</span>
+          <span className="text-foreground">{tools}</span>
         </CardDescription>
       </CardHeader>
       <CardContent className={`overflow-hidden md:relative ${heightClass}`}>
