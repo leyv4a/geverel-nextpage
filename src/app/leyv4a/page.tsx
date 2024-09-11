@@ -42,9 +42,9 @@ export default function GabrielLeyva() {
             unoptimized
           />
           <div>
-            <Link href={"toilet.png"} download={"Gabriel_Leyva_CV"}>
+            <Link href={"CV_Gabriel_Leyva_E.pdf"} download={"Gabriel_Leyva_CV"}>
               <Button className="font-bold font-monserrat">
-                <CloudDownload className="me-2 h-4 w-4" /> Descargar CV
+                <CloudDownload className="me-2 h-4 w-4" /> <span className="me-1 hidden md:block">Descargar</span> CV
               </Button>
             </Link>
           </div>
@@ -539,10 +539,10 @@ const HeartIconSvg = () => (
 // </svg>
 <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#9ca3af" stroke="#9ca3af">
   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+  <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
   <g id="SVGRepo_iconCarrier">
     <title>Corazón</title>
-    <g id="shape" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="shape" stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
       <g id="heart" fill="#9ca3af">
         <path d="M12,20 C9.79485241,19.5208288 3,15.7600002 3,9 C3,6.23857625 5.23857625,4 8,4 C9.63559896,4 11.0877712,4.7853431 12,5.99951255 C12.9122288,4.7853431 14.364401,4 16,4 C18.7614237,4 21,6.23857625 21,9 C21,15.7600002 14.2051476,19.5208288 12,20 Z" id="Shape"></path>
       </g>
