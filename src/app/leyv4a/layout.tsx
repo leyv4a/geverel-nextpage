@@ -33,6 +33,6 @@ export default function Leyv4aLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <div className="bg-gray-100">{children}</div>
+      <div className="bg-gray-100 pb-12">{children}</div>
   );
 }
