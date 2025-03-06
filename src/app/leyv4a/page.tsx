@@ -249,7 +249,7 @@ export default function GabrielLeyva() {
             position="Freelance FullStack Developer"
             time="Nov 2023 - Present"
             link="https://geverel.com"
-            image="https://media.licdn.com/dms/image/v2/D4D12AQFGIri5qr90xg/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1675976120880?e=1731542400&v=beta&t=5749VAJ3TCqwaMRsUpxPyI-ue3FdXLdS23bpM3swDQA"
+            image="/assets/gevereldeveloper.webp"
           />
         </div>
       </section>
