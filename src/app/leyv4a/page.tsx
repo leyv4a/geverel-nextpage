@@ -139,7 +139,7 @@ export default function GabrielLeyva() {
           {/* IZQUIERDA */}
           <div className="flex flex-col gap-4 w-full md:w-1/2 ">
           <ProjectCard
-              xl
+            
           isLaboral
            isLatest
            tools="ElectronForge React.js Tailwind.css Node.js Express.js SQLite MySQL"
@@ -168,10 +168,25 @@ export default function GabrielLeyva() {
               tools="Java JavaSwing MySQL Hibernate"
               source="/assets/projects/placasitson.png"
             />
+            <ProjectCard
+            xl
+            title="Calculadora de metodos numericos computacionales"
+            description="Proyecto para calcular errores"
+            tools="Next.js TypeScript Tailwind.css"
+            source="/assets/projects/errors.png"
+/>
           </div>
 
           {/* DERECHA */}
           <div className="flex flex-col gap-2 w-full md:w-1/2">
+          <ProjectCard
+          isLatest
+          xl
+          title="Escapate a San Carlos"
+          description="Plataforma de promocion turistica"
+          tools="Next.js TypeScript SpringBoot PostgreSQL "
+          source="/assets/projects/easc.png"
+          />
           <ProjectCard
               title="Invitacion"
               description="Invitacion dinamica para un bautizo con confirmacion y mesa de regalos"
