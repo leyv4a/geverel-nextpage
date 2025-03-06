@@ -1,14 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import AnimatedIcon from "../../../public/GabrielBlackLogoAnimated.gif";
-import Gaby from "../../../public/Gabackground.jpg";
+import Gaby from "../../../public/final.jpg";
 import Memogi from "../../../public/toilet.png";
 import Map from "../../../public/UbiMaps.png";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -102,7 +101,7 @@ export default function GabrielLeyva() {
             <div className="flex gap-2 w-full">
               <div className="w-full p-5 bg-white rounded-md">
                 <h1 className="text-center text-gray-800 font-bold text-7xl">
-                  +1
+                  +2
                 </h1>
                 <p className="text-center text-[#1f2937]">
                   Años de experiencia
@@ -139,9 +138,16 @@ export default function GabrielLeyva() {
         <div className="flex flex-col md:flex-row gap-5 mt-5 w-full">
           {/* IZQUIERDA */}
           <div className="flex flex-col gap-4 w-full md:w-1/2 ">
-            <ProjectCard
+          <ProjectCard
               xl
-              isLatest
+          isLaboral
+           isLatest
+           tools="ElectronForge React.js Tailwind.css Node.js Express.js SQLite MySQL"
+           title={"Administrador del departamento de Sistemas"}
+           description="Aplicación para administrar los sistemas de la empresa"
+           source="/assets/projects/sistemasnova.png"
+          />
+            <ProjectCard
               title={"Gevpoint"}
               description="Punto de Venta con IoT y Hardware Externo"
               tools="ElectronForge React.js Tailwind.css Node.js Express.js SQLite SerialPort"
@@ -156,7 +162,7 @@ export default function GabrielLeyva() {
               source="/assets/projects/geverel.png"
             />
             <ProjectCard
-              xs
+              xl
               title="Sistema de control de placas"
               description="Proyecto escolar"
               tools="Java JavaSwing MySQL Hibernate"
@@ -166,17 +172,23 @@ export default function GabrielLeyva() {
 
           {/* DERECHA */}
           <div className="flex flex-col gap-2 w-full md:w-1/2">
+          <ProjectCard
+              title="Invitacion"
+              description="Invitacion dinamica para un bautizo con confirmacion y mesa de regalos"
+              tools="Next.js TypeScript PostgreSQL Formik Tailwind.css"
+              source="/assets/projects/invitacion.PNG"
+            />
             <ProjectCard
               isLaboral
               title="NailArtist Aplicacion de citas"
               description="Aplicacion de citas"
               tools="JavaScript React.js Framer-Motion PostgreSQL Formik Tailwind.css"
               source="/assets/projects/citas.png"
-              xs
+              xl
             />
             <ProjectCard
+            xl
               isLaboral
-              xl
               title={"Serconomar"}
               description="Landing page y Bolsa de trabajo"
               tools="JavaScript React.js Vite.js Axios i18next Formik Google-Recaptcha Tailwind.css"
