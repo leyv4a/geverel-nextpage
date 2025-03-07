@@ -173,7 +173,7 @@ export default function GabrielLeyva() {
             title="Calculadora de metodos numericos computacionales"
             description="Proyecto para calcular errores"
             tools="Next.js TypeScript Tailwind.css"
-            source="/assets/projects/errors.png"
+            source="/assets/projects/errors.PNG"
 />
           </div>
 
@@ -185,7 +185,7 @@ export default function GabrielLeyva() {
           title="Escapate a San Carlos"
           description="Plataforma de promocion turistica"
           tools="Next.js TypeScript SpringBoot PostgreSQL "
-          source="/assets/projects/easc.png"
+          source="/assets/projects/easc.PNG"
           />
           <ProjectCard
               title="Invitacion"
